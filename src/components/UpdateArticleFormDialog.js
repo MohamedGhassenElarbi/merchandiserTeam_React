@@ -28,6 +28,7 @@ export default function UpdateCategoryFormDialog({id,setArticles}) {
     setOpen(true);
     axios.get(`http://localhost:8080/api/v1/articles/${id}`)
         .then(res => {
+          console.log(res.data);
             const articleData = res.data;
             setArticle(articleData);
             
@@ -37,7 +38,6 @@ export default function UpdateCategoryFormDialog({id,setArticles}) {
         .then(res => {
           const categoryData = res.data;
             setCategories(categoryData);
-            console.log(res.data);
 
         })
   };
@@ -93,7 +93,7 @@ export default function UpdateCategoryFormDialog({id,setArticles}) {
           if (!values.type) {
             errors.type = 'Required';
           }
-          if (!values.categorie) {
+          if (!values.category) {
             errors.categorie = 'Required';
           }
           if (!values.codeProduit) {
@@ -108,9 +108,10 @@ export default function UpdateCategoryFormDialog({id,setArticles}) {
          return errors;
        }}
        onSubmit={(values, { setSubmitting }) => {
-        axios.put(`http://localhost:8080/api/v1/articles/${id}`,values)
+         console.log(values);
+        axios.put(`http://localhost:8080/api/v1/articles/${id}`,{...values,category:{id:values.category}})
         .then(response => {
-          console.log(response);
+          console.log({response});
           setSubmitting(false);
           axios.get(`http://localhost:8080/api/v1/articles`)
             .then(res => {
@@ -170,18 +171,18 @@ export default function UpdateCategoryFormDialog({id,setArticles}) {
            <InputLabel  shrink id="cat" >Catégorie:</InputLabel>
            <Select
              labelId="cat"
-             name="categorie"
+             name="category"
              fullWidth
              onChange={handleChange}
              onBlur={handleBlur}
-            //  value={values.categorie}
+             value={values.category}
            >
-             <MenuItem  key={values.id} value={values.categorie}>{values.categorie}</MenuItem >
+             
                {categories.map(val => {
-                   return <MenuItem  key={val.id} value={val.nom}>{val.nom}</MenuItem >;
+                   return <MenuItem  key={val.id} value={val.id}>{val.nom}</MenuItem >;
                })}
            </Select><br />
-           {errors.categorie && touched.categorie && errors.categorie}
+           {errors.category && touched.category && errors.category}
            <TextField
              fullWidth
              margin="normal"

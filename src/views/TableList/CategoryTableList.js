@@ -48,7 +48,7 @@ export default function CategoryTableList() {
   return (
     
       <GridItem xs={12} sm={12} md={12}>
-        <AddCategoryFormDialog categories={categories} setCategories={setCategories}/>
+        <AddCategoryFormDialog setCategories={setCategories}/>
         <Card>
           <CardHeader color="primary">
             <h4 className={classes.cardTitleWhite}>Liste des Catégories</h4>

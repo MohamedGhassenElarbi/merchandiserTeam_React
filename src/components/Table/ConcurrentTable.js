@@ -42,8 +42,8 @@ export default function ConcurrentTable({concurrents,handleRemove,setConcurrents
               <TableCell component="th" scope="row">
                 {row.name}
               </TableCell>
-              <TableCell align="right">{row.category}</TableCell>
-              <TableCell align="right">{row.gms}</TableCell>
+              <TableCell align="right">{row.categories[0].nom}</TableCell>
+              <TableCell align="right">{row.gms[0].name}</TableCell>
               
               
               <TableCell align="right">

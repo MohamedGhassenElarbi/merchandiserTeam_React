@@ -9,7 +9,7 @@ import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
-import { Form, Formik } from 'formik';
+import { Form, Formik,Field } from 'formik';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -49,7 +49,7 @@ export default function UpdateGMSFormDialog({id,setGMS}) {
         <DialogContent>
         <Formik
         enableReinitialize
-       initialValues={singleGMS}
+       initialValues={{...singleGMS,image:''}}
        validate={values => {
          const errors = {};
          if (!values.name) {
@@ -70,6 +70,8 @@ export default function UpdateGMSFormDialog({id,setGMS}) {
          return errors;
        }}
        onSubmit={(values, { setSubmitting }) => {
+         console.log(values);
+         
         axios.put(`http://localhost:8080/api/v1/gms/${id}`,values)
         .then(response => {
           console.log(response);
@@ -92,6 +94,7 @@ export default function UpdateGMSFormDialog({id,setGMS}) {
          handleChange,
          handleBlur,
          handleSubmit,
+         setFieldValue,
          isSubmitting,
        }) => (
          <Form >
@@ -106,16 +109,14 @@ export default function UpdateGMSFormDialog({id,setGMS}) {
              placeholder="designation"
            /><br />
            {errors.name && touched.name && errors.name}
-           <TextField
-             fullWidth
-             margin="normal"
-             type="text"
-             name="image"
-             onChange={handleChange}
-             onBlur={handleBlur}
-             value={values.image}
-             placeholder="image"
-           /><br />
+           {/* <input type="file" name="image"
+           onChange={(event) => {
+            setFieldValue("image", event.currentTarget.files[0]);
+          }}/> */}
+          <Field type="file" name="image"
+           onChange={handleChange}
+           onBlur={handleBlur}
+           value={values.image}/>
            {errors.image && touched.image && errors.image}
            <TextField
              fullWidth

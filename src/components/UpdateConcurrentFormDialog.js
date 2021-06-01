@@ -27,7 +27,7 @@ export default function UpdateGMSFormDialog({id,setConcurrents}) {
 
   const handleClickOpen = () => {
     setOpen(true);
-    axios.get(`http://localhost:8080/concurrents/${id}`)
+    axios.get(`http://localhost:8080/api/v1/competitor/${id}`)
         .then(res => {
             const concurrentData = res.data;
             setConcurrent(concurrentData);
@@ -79,7 +79,7 @@ export default function UpdateGMSFormDialog({id,setConcurrents}) {
          return errors;
        }}
        onSubmit={(values, { setSubmitting }) => {
-        axios.put(`http://localhost:8080/api/v1/competitor/${id}`,values)
+        axios.put(`http://localhost:8080/api/v1/competitor/${id}`,{...values,categories:[{id:values.category}],gms:[{id:values.gms}]})
         .then(response => {
           console.log(response);
           setSubmitting(false);
@@ -122,11 +122,11 @@ export default function UpdateGMSFormDialog({id,setConcurrents}) {
              fullWidth
              onChange={handleChange}
              onBlur={handleBlur}
-            //  value={values.categorie}
+             value={values.category}
            >
-             <MenuItem  key={values.id} value={values.category}>{values.category}</MenuItem >
+             
                {categories.map(val => {
-                   return <MenuItem  key={val.id} value={val.nom}>{val.nom}</MenuItem >;
+                   return <MenuItem  key={val.id} value={val.id}>{val.nom}</MenuItem >;
                })}
            </Select><br />
            {errors.category && touched.category && errors.category}
@@ -137,11 +137,11 @@ export default function UpdateGMSFormDialog({id,setConcurrents}) {
              fullWidth
              onChange={handleChange}
              onBlur={handleBlur}
-            //  value={values.categorie}
+             value={values.gms}
            >
-             <MenuItem  key={values.id} value={values.gms}>{values.gms}</MenuItem >
+             
                {listGMS.map(val => {
-                   return <MenuItem  key={val.id} value={val.name}>{val.name}</MenuItem >;
+                   return <MenuItem  key={val.id} value={val.id}>{val.name}</MenuItem >;
                })}
            </Select><br />
            {errors.gms && touched.gms && errors.gms}

@@ -8,7 +8,7 @@ import Button from "components/CustomButtons/Button.js";
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
 import ButtonMaterial from '@material-ui/core/Button';
-import { Form, Formik } from 'formik';
+import { Field, Form, Formik } from 'formik';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -96,18 +96,11 @@ export default function AddGMSFormDialog({setGMS}) {
              placeholder="designation"
            /><br />
            {errors.name && touched.name && errors.name}
-           {/* <TextField
-             fullWidth
-             margin="normal"
-             type="text"
-             name="image"
-             onChange={handleChange}
-             onBlur={handleBlur}
-             value={values.image}
-             placeholder="image"
-           /><br />
-           {errors.image && touched.image && errors.image} */}
-           <Upload></Upload>
+           <Field type="file" name="image"
+           onChange={handleChange}
+           onBlur={handleBlur}
+           value={values.image}/>
+           {errors.image && touched.image && errors.image}
            <TextField
              fullWidth
              margin="normal"

@@ -54,7 +54,7 @@ export default function AddConcurrentFormDialog({setConcurrents}) {
         <DialogTitle id="form-dialog-title">Ajouter un nouveau Concurrent</DialogTitle>
         <DialogContent>
         <Formik
-       initialValues={{ name: '', category: '',gms:''}}
+       initialValues={{ name: '', category:null ,gms:null}}
        validate={values => {
          const errors = {};
          if (!values.name) {
@@ -69,7 +69,8 @@ export default function AddConcurrentFormDialog({setConcurrents}) {
          return errors;
        }}
        onSubmit={(values, { setSubmitting }) => {
-        axios.post(`http://localhost:8080/api/v1/competitor`, values)
+         console.log(values);
+        axios.post(`http://localhost:8080/api/v1/competitor`,  {...values,categories:[{id:values.category}],gms:[{id:values.gms}]})
         .then(response => {
           console.log(response);
           setSubmitting(false);
@@ -112,11 +113,11 @@ export default function AddConcurrentFormDialog({setConcurrents}) {
              fullWidth
              onChange={handleChange}
              onBlur={handleBlur}
-            //  value={values.categorie}
+             value={values.category}
            >
-             <MenuItem  key={values.id} value={values.category}>{values.category}</MenuItem >
+             
                {categories.map(val => {
-                   return <MenuItem  key={val.id} value={val.nom}>{val.nom}</MenuItem >;
+                   return <MenuItem  key={val.id} value={val.id}>{val.nom}</MenuItem >;
                })}
            </Select><br />
            {errors.category && touched.category && errors.category}
@@ -127,11 +128,10 @@ export default function AddConcurrentFormDialog({setConcurrents}) {
              fullWidth
              onChange={handleChange}
              onBlur={handleBlur}
-            //  value={values.categorie}
+            value={values.gms}
            >
-             <MenuItem  key={values.id} value={values.gms}>{values.gms}</MenuItem >
                {listGMS.map(val => {
-                   return <MenuItem  key={val.id} value={val.name}>{val.name}</MenuItem >;
+                   return <MenuItem  key={val.id} value={val.id}>{val.name}</MenuItem >;
                })}
            </Select><br />
            {errors.gms && touched.gms && errors.gms}
