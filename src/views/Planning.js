@@ -6,6 +6,7 @@ import axios from 'axios';
 import AddPlanningFormDialog from 'components/AddPlanningFormDialog'
 import UpdatePlanningFormDialog from 'components/UpdatePlanningFormDialog'
 import DeletePlanningFormDialog from 'components/DeletePlanningFormDialog'
+import {format,parse} from 'date-fns';
 
 export default function Planning() {
   const [merchandiser, setMerchandiser] = useState();
@@ -20,7 +21,9 @@ export default function Planning() {
             setMerchandisers(merchandisersData);
         })
 }, [])
-
+const fetchTask =()=>{
+  
+}
 useEffect(() => {
   if(!merchandiser)return;
   axios.get(`http://localhost:8080/api/v1/taskPlanning/merchandiser/${merchandiser.id}`)
@@ -32,7 +35,7 @@ useEffect(() => {
 let eventsList;
 if(taskPlanning){
  eventsList=taskPlanning.tasks.map(val => {
-  return { title: val.gms.name, startRecur:taskPlanning.startDate,endRecur:taskPlanning.endDate,daysOfWeek: [ val.day ] };
+  return { title: val.gms.name, startRecur:format(new Date(parse(taskPlanning.startDate, 'dd-MM-yyyy', new Date())), 'yyyy-MM-dd'),endRecur:format(new Date(parse(taskPlanning.endDate, 'dd-MM-yyyy', new Date())), 'yyyy-MM-dd'),daysOfWeek: [ val.day ] };
 })
 }
   return (

@@ -19,7 +19,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
 
-export default function AddPlanningFormDialog({/*setArticles*/}) {
+export default function AddPlanningFormDialog() {
   const [open, setOpen] = React.useState(false);
   const [listGMS, setListGMS] = useState([]);
   const [listMerchandisers, setListMerchandisers] = useState([]);
