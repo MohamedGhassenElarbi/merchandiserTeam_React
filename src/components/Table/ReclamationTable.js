@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -7,10 +7,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import axios from 'axios';
-import DeleteCategoryDialog from '../DeleteCategoryDialog';
-import UpdateCategoryFormDialog from '../UpdateCategoryFormDialog';
-
+import DeleteReclamationDialog from '../DeleteReclamationDialog';
 
 const useStyles = makeStyles({
   table: {
@@ -18,19 +15,8 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ReclamationTable({reclamations,setReclamations}) {
+export default function ReclamationTable({reclamations,handleRemove}) {
   const classes = useStyles();
-  // const [categories, setCategories] = useState([]);
-    useEffect(() => {
-        axios.get(`http://localhost:8080/api/v1/reclamation`)
-            .then(res => {
-                const reclamationData = res.data;
-                setReclamations(reclamationData);
-                //console.log(categoryData);
-
-            })
-    }, [])
-
 
   return (
     <TableContainer component={Paper}>
@@ -38,10 +24,11 @@ export default function ReclamationTable({reclamations,setReclamations}) {
         <TableHead>
           <TableRow>
             <TableCell>Id</TableCell>
-            <TableCell align="right">Nom</TableCell>
+            <TableCell align="right">Type reclamation</TableCell>
+            <TableCell align="right">Contenue</TableCell>
             <TableCell align="right">GMS</TableCell>
             <TableCell align="right">Merchandiser</TableCell>
-            
+            <TableCell align="right">Opérations</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -50,15 +37,15 @@ export default function ReclamationTable({reclamations,setReclamations}) {
               <TableCell component="th" scope="row">
                 {row.id}
               </TableCell>
-              <TableCell align="right">{row.name}</TableCell>
-              <TableCell align="right">{row.gms}</TableCell>
-              <TableCell align="right">{row.merchandiser}</TableCell>
-              
+              <TableCell align="right">{row.type.name}</TableCell>
+              <TableCell align="right">{row.content}</TableCell>
+              <TableCell align="right">{row.gms.name}</TableCell>
+              <TableCell align="right">{row.merchandiser.name}</TableCell>
+              <TableCell align="right"><DeleteReclamationDialog id={row.id} handleRemove={handleRemove}/></TableCell>
             </TableRow>
           ))}
         </TableBody>
-      </Table>
-            
+      </Table>     
     </TableContainer>
   );
 }

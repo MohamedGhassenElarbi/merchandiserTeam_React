@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
-// @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-
 import GridItem from "components/Grid/GridItem.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 import ReclamationTable from 'components/Table/ReclamationTable';
+import axios from 'axios';
 
 const styles = {
   cardCategoryWhite: {
@@ -43,9 +42,27 @@ const useStyles = makeStyles(styles);
 export default function ReclamationTableList() {
   const classes = useStyles();
   const [reclamations, setReclamations] = useState([]);
-  
+  useEffect(() => {
+    axios.get(`http://localhost:8080/api/v1/reclamation`)
+        .then(res => {
+            const reclamationData = res.data;
+            setReclamations(reclamationData);
+            console.log(reclamationData);
+
+        })
+}, [])
+
+const handleRemove=(id) =>{
+  axios.delete(`http://localhost:8080/api/v1/reclamation/${id}`)
+  .then(res => {
+    const newReclamations = reclamations.filter(reclamation => id !== reclamation.id)
+    setReclamations(newReclamations)
+})
+  .catch(err => {
+    console.log(err);
+  });
+}
   return (
-    
       <GridItem xs={12} sm={12} md={12}>
         <Card>
           <CardHeader color="primary">
@@ -55,13 +72,9 @@ export default function ReclamationTableList() {
             </p>
           </CardHeader>
           <CardBody>
-            
-            <ReclamationTable reclamations={reclamations} setReclamations={setReclamations} />
-            
-            
+            <ReclamationTable reclamations={reclamations}handleRemove={handleRemove} />
           </CardBody>
         </Card>
       </GridItem>
-    
   );
 }
