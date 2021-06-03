@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
-// @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-
 import GridItem from "components/Grid/GridItem.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
@@ -50,11 +48,8 @@ export default function ConcurrentTableList() {
         .then(res => {
             const concurrentsData = res.data;
             setConcurrents(concurrentsData);
-            //console.log(gmsData);
-
         })
 }, [])
-
 
 const handleRemove=(id) =>{
     axios.delete(`http://localhost:8080/api/v1/competitor/${id}`)
@@ -67,7 +62,6 @@ const handleRemove=(id) =>{
     });
   }
   return (
-    
       <GridItem xs={12} sm={12} md={12}>
         <AddConcurrentFormDialog setConcurrents={setConcurrents}/>
         <Card>
@@ -79,11 +73,8 @@ const handleRemove=(id) =>{
           </CardHeader>
           <CardBody>
             <ConcurrentTable concurrents={concurrents} setConcurrents={setConcurrents} handleRemove={handleRemove}/>
-            
-            
           </CardBody>
         </Card>
       </GridItem>
-    
   );
 }
