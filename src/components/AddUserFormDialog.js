@@ -1,4 +1,4 @@
-import React, {useState,useEffect } from 'react';
+import React from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -7,12 +7,12 @@ import Slide from '@material-ui/core/Slide';
 import Button from "components/CustomButtons/Button.js";
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
-import Typography from '@material-ui/core/Typography';
 import { Form, Formik } from 'formik';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles } from '@material-ui/core/styles';
+import CustomTextField from 'components/CustomInput/CustomTextField';
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -97,16 +97,8 @@ export default function AddGMSFormDialog({setUsers}) {
          isSubmitting,
        }) => (
         <Form >
-        <TextField 
-          fullWidth
-          margin="normal"
-          type="text"
-          name="name"
-          onChange={handleChange}
-          onBlur={handleBlur}
-          value={values.name}
-          placeholder="Nom"
-        /><br />
+         <CustomTextField handleChange={handleChange} handleBlur={handleBlur} settedValue={values.name} placeHolderValue={"Nom"} name={"name"}></CustomTextField>
+        <br />
         {errors.name && touched.name && errors.name}
         <TextField
           fullWidth
@@ -117,18 +109,11 @@ export default function AddGMSFormDialog({setUsers}) {
           onBlur={handleBlur}
           value={values.email}
           placeholder="email"
-        /><br />
+        />
+        <br />
         {errors.email && touched.email && errors.email}
-        <TextField
-          fullWidth
-          margin="normal"
-          type="text"
-          name="phone"
-          onChange={handleChange}
-          onBlur={handleBlur}
-          value={values.phone}
-          placeholder="Numero de Telephone"
-        /><br />
+        <CustomTextField handleChange={handleChange} handleBlur={handleBlur} settedValue={values.phone} placeHolderValue={"Numero de Telephone"} name={"phone"}></CustomTextField>
+        <br />
         {errors.phone && touched.phone && errors.phone}
         <InputLabel  shrink id="cat" >Role:</InputLabel>
         <Select
@@ -145,17 +130,6 @@ export default function AddGMSFormDialog({setUsers}) {
           <MenuItem  key="3" value="SUPERVISOR">Superviseur</MenuItem >
         </Select><br />
         {errors.role && touched.role && errors.role}
-        {/* <TextField
-          fullWidth
-          margin="normal"
-          type="text"
-          name="dob"
-          onChange={handleChange}
-          onBlur={handleBlur}
-          value={values.dob}
-          placeholder="Date de Naissance"
-        /><br />
-        {errors.dob && touched.dob && errors.dob} */}
         <TextField
         id="date"
         name="dob"
@@ -172,16 +146,8 @@ export default function AddGMSFormDialog({setUsers}) {
         style={{marginTop: "20px"}}
       /><br/>
         {errors.dob && touched.dob && errors.dob}
-        <TextField
-          fullWidth
-          margin="normal"
-          type="text"
-          name="username"
-          onChange={handleChange}
-          onBlur={handleBlur}
-          value={values.username}
-          placeholder="Nom de l'utilisateur"
-        /><br />
+        <CustomTextField handleChange={handleChange} handleBlur={handleBlur} settedValue={values.username} placeHolderValue={"Nom de l'utilisateur"} name={"username"}></CustomTextField>
+        <br />
         {errors.username && touched.username && errors.username}
         <DialogActions>
        <Button color="primary" type="submit" disabled={isSubmitting}>
@@ -194,9 +160,7 @@ export default function AddGMSFormDialog({setUsers}) {
       </Form>
        )}
      </Formik>
-
-        </DialogContent>
-        
+        </DialogContent>       
       </Dialog>
     </>
   );

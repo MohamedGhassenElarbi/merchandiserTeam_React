@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useState } from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -27,8 +27,6 @@ export default function UpdateCategoryFormDialog({ id,handleUpdate }) {
         .then(res => {
             const categoryData = res.data;
             setNomCat(categoryData.nom);
-            //console.log(categoryData);
-
         })
   };
 
@@ -72,9 +70,7 @@ export default function UpdateCategoryFormDialog({ id,handleUpdate }) {
             <Typography variant="caption" color='error' display="block" gutterBottom>
               veiller remplir tous les champs
           </Typography>
-
           }
-
         </DialogContent>
         <DialogActions>
           <Button onClick={handleUpdateConfirmation} color="primary">

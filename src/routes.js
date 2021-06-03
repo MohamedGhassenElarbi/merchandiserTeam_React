@@ -9,6 +9,7 @@ import Product from "@material-ui/icons/LocalOffer";
 import Plan from "@material-ui/icons/FormatListBulleted"
 import CategoryIcon from '@material-ui/icons/Category';
 import Lock from '@material-ui/icons/Lock'
+import AppsIcon from '@material-ui/icons/Apps';
 // core components/views for Admin layout
 import CategoryTableList from "views/TableList/CategoryTableList";
 import ArticleTableList from "views/TableList/ArticleTableList.js";
@@ -19,6 +20,7 @@ import MonthlyGoal from 'views/MonthlyGoal';
 import UserTableList from 'views/TableList/UserTableList';
 import Planning from 'views/Planning';
 import ReclamationTableList from 'views/TableList/ReclamationTableList'
+import ClaimTypeTableList from 'views/TableList/ClaimTypeTableList'
 
 
 
@@ -49,6 +51,13 @@ const dashboardRoutes = [
     name: "Réclamations",
     icon: Claim,
     component: ReclamationTableList,
+    layout: "/admin"
+  },
+  {
+    path: "/typesRecalamation",
+    name: "Types Réclamations",
+    icon: AppsIcon,
+    component: ClaimTypeTableList,
     layout: "/admin"
   },
   {

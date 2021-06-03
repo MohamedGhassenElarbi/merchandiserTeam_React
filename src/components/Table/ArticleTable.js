@@ -69,12 +69,8 @@ export default function ArticleTable({articles,setArticles}) {
               <TableCell align="right">{row.type}</TableCell>
               <TableCell align="right">{row.prix}</TableCell>
               <TableCell align="right">{row.codeProduit}</TableCell>
-              <TableCell align="right">{row.category.nom}</TableCell>
+              <TableCell align="right">{row.category?.nom}</TableCell>
               <TableCell align="right">{row.reference}</TableCell>
-              
-              
-              
-              
               <TableCell align="right">
               {/* <IconButton aria-label="delete">
               <DetailIcon color="primary"/>
