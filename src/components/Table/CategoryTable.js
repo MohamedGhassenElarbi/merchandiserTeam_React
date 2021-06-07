@@ -8,7 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import axios from 'axios';
-import DeleteCategoryDialog from '../DeleteCategoryDialog';
+import DeleteDialog from '../DeleteDialog';
 import UpdateCategoryFormDialog from '../UpdateCategoryFormDialog';
 
 
@@ -73,10 +73,9 @@ export default function CategoryTable({categories,setCategories}) {
                 {row.id}
               </TableCell>
               <TableCell align="right">{row.nom}</TableCell>
-              
               <TableCell align="right">
               <UpdateCategoryFormDialog id={row.id} handleUpdate={handleUpdate}/>
-              <DeleteCategoryDialog id={row.id} handleRemove={handleRemove}/>
+              <DeleteDialog id={row.id} handleRemove={handleRemove} removedElementName={"cette catégorie"}/>
               </TableCell>
             </TableRow>
           ))}

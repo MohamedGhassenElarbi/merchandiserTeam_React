@@ -12,7 +12,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import DetailIcon from '@material-ui/icons/Visibility';
 import EditIcon from '@material-ui/icons/Edit';
 import axios from 'axios';
-import DeleteArticleDialog from '../DeleteArticleDialog'
+import DeleteDialog from '../DeleteDialog';
 import UpdateArticleFormDialog from '../UpdateArticleFormDialog'
 
 
@@ -78,7 +78,7 @@ export default function ArticleTable({articles,setArticles}) {
               <IconButton aria-label="delete">
               <UpdateArticleFormDialog id={row.id} setArticles={setArticles}/>
               </IconButton>
-              <DeleteArticleDialog id={row.id} handleRemove={handleRemove}/>
+              <DeleteDialog id={row.id} handleRemove={handleRemove} removedElementName={"cette article"}/>
               </TableCell>
             </TableRow>
           ))}

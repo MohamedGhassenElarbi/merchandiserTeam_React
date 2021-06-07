@@ -13,7 +13,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
 
-export default function DeleteArticleDialog(props) {
+export default function DeleteDialog(props) {
 
   const [open, setOpen] = React.useState(false);
 
@@ -32,8 +32,8 @@ export default function DeleteArticleDialog(props) {
   return (
     <>
       <IconButton aria-label="delete" onClick={handleClickOpen}>
-              <DeleteIcon color="secondary"/>
-              </IconButton>
+        <DeleteIcon color="secondary"/>
+      </IconButton>
       <Dialog
         open={open}
         TransitionComponent={Transition}
@@ -42,10 +42,10 @@ export default function DeleteArticleDialog(props) {
         aria-labelledby="alert-dialog-slide-title"
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle id="alert-dialog-slide-title">{"Are you sure you want to delete this GMS ?"}</DialogTitle>
+        <DialogTitle id="alert-dialog-slide-title">{`Confirmer-vous la suppression de ${props.removedElementName}`}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            this operation is irreversible,items are definetively deleted
+            Si vous confirmer ,{props.removedElementName} sera definitivement effacé
           </DialogContentText>
         </DialogContent>
         <DialogActions>

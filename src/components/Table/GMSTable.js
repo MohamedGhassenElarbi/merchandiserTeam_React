@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -7,12 +7,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
-import DetailIcon from '@material-ui/icons/Visibility';
-import EditIcon from '@material-ui/icons/Edit';
-import axios from 'axios';
-import DeleteGMSDialog from '../DeleteGMSDialog';
+import DeleteDialog from '../DeleteDialog';
 import UpdateGMSFormDialog from '../UpdateGMSFormDialog';
 import GMSDetailsFormDialog from '../GMSDetailsFormDialog';
 
@@ -47,16 +42,11 @@ export default function GMSTable({gms,handleRemove,setGMS}) {
               <TableCell align="right">{row.estimatedTime}</TableCell>
               <TableCell align="right">{row.longitude}</TableCell>
               <TableCell align="right">{row.latitude}</TableCell>
-              
-              
               <TableCell align="right">
-              {/* <IconButton aria-label="delete">
-              <DetailIcon color="primary"/>
-              </IconButton> */}
               <GMSDetailsFormDialog/>
               <UpdateGMSFormDialog id={row.id} setGMS={setGMS}/>
               
-              <DeleteGMSDialog id={row.id} handleRemove={handleRemove}/>
+              <DeleteDialog id={row.id} handleRemove={handleRemove}removedElementName={"cette GMS"}/>
               </TableCell>
             </TableRow>
           ))}

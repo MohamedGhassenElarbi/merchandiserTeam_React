@@ -7,7 +7,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import DeleteClaimTypeDialog from '../DeleteClaimTypeDialog'
+import DeleteDialog from '../DeleteDialog';
 import UpdateClaimTypeFormDialog from '../UpdateClaimTypeFormDialog'
 
 
@@ -41,7 +41,7 @@ export default function ClaimTypeTable({claimTypes,handleRemove,setClaimTypes}) 
               </TableCell>
               <TableCell align="right">
               <UpdateClaimTypeFormDialog id={row.id} setClaimTypes={setClaimTypes}/>
-              <DeleteClaimTypeDialog id={row.id} handleRemove={handleRemove}/>
+              <DeleteDialog id={row.id} handleRemove={handleRemove}removedElementName={"cette type de réclamation"}/>
               </TableCell>
             </TableRow>
           ))}

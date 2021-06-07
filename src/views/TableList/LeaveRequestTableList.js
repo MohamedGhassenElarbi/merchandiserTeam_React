@@ -4,8 +4,7 @@ import GridItem from "components/Grid/GridItem.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
-import GMSTable from 'components/Table/GMSTable';
-import AddGMSFormDialog from 'components/AddGMSFormDialog'
+import LeaveRequestTable from 'components/Table/LeaveRequestTable';
 import axios from 'axios';
 
 const styles = {
@@ -40,23 +39,24 @@ const styles = {
 
 const useStyles = makeStyles(styles);
 
-export default function GMSTableList() {
+export default function LeaveRequestTableList() {
   const classes = useStyles();
-  const [gms, setGMS] = useState([]);
+  const [leaveRequests, setLeaveRequests] = useState([]);
   useEffect(() => {
-    axios.get(`http://localhost:8080/api/v1/gms`)
+    axios.get(`http://localhost:8080/api/v1/leave`)
         .then(res => {
-            const gmsData = res.data;
-            setGMS(gmsData);
+            const leaveRequestsData = res.data;
+            setLeaveRequests(leaveRequestsData);
+            console.log(leaveRequestsData);
         })
 }, [])
 
 
 const handleRemove=(id) =>{
-    axios.delete(`http://localhost:8080/api/v1/gms/${id}`)
+    axios.delete(`http://localhost:8080/api/v1/leave/${id}`)
     .then(res => {
-      const newGMS = gms.filter(gms => id !== gms.id)
-      setGMS(newGMS)
+      const newLeaveRequests = leaveRequests.filter(leaveRequest => id !== leaveRequest.id)
+      setLeaveRequests(newLeaveRequests)
   })
     .catch(err => {
       console.log(err);
@@ -65,16 +65,15 @@ const handleRemove=(id) =>{
   return (
     
       <GridItem xs={12} sm={12} md={12}>
-        <AddGMSFormDialog setGMS={setGMS}/>
         <Card>
           <CardHeader color="primary">
-            <h4 className={classes.cardTitleWhite}>Liste des GMS</h4>
+            <h4 className={classes.cardTitleWhite}>Liste des demandes de congés</h4>
             <p className={classes.cardCategoryWhite}>
-              GMS:
+            Demandes de congés:
             </p>
           </CardHeader>
           <CardBody>
-            <GMSTable setGMS={setGMS} gms={gms} handleRemove={handleRemove}/>
+            <LeaveRequestTable leaveRequests={leaveRequests} setLeaveRequests={setLeaveRequests} handleRemove={handleRemove}/>
           </CardBody>
         </Card>
       </GridItem>

@@ -12,7 +12,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import DetailIcon from '@material-ui/icons/Visibility';
 import EditIcon from '@material-ui/icons/Edit';
 import axios from 'axios';
-import DeleteUserDialog from '../DeleteGMSDialog';
+import DeleteDialog from '../DeleteDialog';
 import UpdateUserFormDialog from '../UpdateUserFormDialog';
 import GMSDetailsFormDialog from '../GMSDetailsFormDialog';
 
@@ -58,7 +58,7 @@ export default function UserTable({users,handleRemove,setUsers}) {
               {/* <GMSDetailsFormDialog/> */}
               <UpdateUserFormDialog id={row.id} setUsers={setUsers}/>
               
-               <DeleteUserDialog id={row.id} handleRemove={handleRemove}/>
+               <DeleteDialog id={row.id} handleRemove={handleRemove}removedElementName={"cet utilisateur"}/>
               </TableCell>
             </TableRow>
           ))}
