@@ -11,7 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DetailIcon from '@material-ui/icons/Visibility';
 import EditIcon from '@material-ui/icons/Edit';
-import axios from 'axios';
+import api from 'api';
 import DeleteDialog from '../DeleteDialog';
 import UpdateArticleFormDialog from '../UpdateArticleFormDialog'
 
@@ -25,7 +25,7 @@ const useStyles = makeStyles({
 export default function ArticleTable({articles,setArticles}) {
   const classes = useStyles();
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/v1/articles`)
+      api.get(`http://localhost:8080/api/v1/articles`)
             .then(res => {
                 const articleData = res.data;
                 setArticles(articleData);
@@ -36,7 +36,7 @@ export default function ArticleTable({articles,setArticles}) {
 
 
     const handleRemove=(id) =>{
-      axios.delete(`http://localhost:8080/api/v1/articles/${id}`)
+      api.delete(`http://localhost:8080/api/v1/articles/${id}`)
       .then(res => {
         const newArticles = articles.filter(article => id !== article.id)
         setArticles(newArticles)

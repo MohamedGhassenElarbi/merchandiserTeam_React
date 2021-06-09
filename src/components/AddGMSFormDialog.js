@@ -4,7 +4,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from "components/CustomButtons/Button.js";
-import axios from 'axios';
+import api from 'api';
 import { Field, Form, Formik } from 'formik';
 import CustomTextField from 'components/CustomInput/CustomTextField';
 
@@ -47,10 +47,10 @@ export default function AddGMSFormDialog({setGMS}) {
          return errors;
        }}
        onSubmit={(values, { setSubmitting }) => {
-        axios.post(`http://localhost:8080/api/v1/gms`, values)
+        api.post(`http://localhost:8080/api/v1/gms`, values)
         .then(response => {
           setSubmitting(false);
-          axios.get(`http://localhost:8080/api/v1/gms`)
+          api.get(`http://localhost:8080/api/v1/gms`)
             .then(res => {
               const gmsData = res.data;
               setGMS(gmsData);

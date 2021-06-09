@@ -9,6 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import DeleteDialog from '../DeleteDialog'
 import ReportDetailsFormDialog from '../ReportDetailsFormDialog';
+import {format,parse} from 'date-fns';
 
 const useStyles = makeStyles({
   table: {
@@ -37,9 +38,9 @@ export default function ReportTable({reports,handleRemove}) {
               <TableCell component="th" scope="row">
                 {row.id}
               </TableCell>
-              <TableCell component="th" scope="row"></TableCell>
+              <TableCell component="th" scope="row">{format(new Date(row.dateTime), 'dd-MM-yyyy')}</TableCell>
               <TableCell component="th" scope="row">{row.gms.name}</TableCell>
-              <TableCell component="th" scope="row"></TableCell>
+              <TableCell component="th" scope="row">{row.merchandiser?.name}</TableCell>
               <TableCell align="right">
               <ReportDetailsFormDialog id={row.id}/>
               <DeleteDialog id={row.id} handleRemove={handleRemove}removedElementName={"cette rapport"}/>

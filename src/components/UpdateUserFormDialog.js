@@ -6,7 +6,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import Button from "components/CustomButtons/Button.js";
 import TextField from '@material-ui/core/TextField';
-import axios from 'axios';
+import api from 'api';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 import { Form, Formik } from 'formik';
@@ -25,7 +25,7 @@ export default function UpdateUserFormDialog({id,setUsers}) {
 
   const handleClickOpen = () => {
     setOpen(true);
-    axios.get(`http://localhost:8080/api/v1/user/${id}`)
+    api.get(`http://localhost:8080/api/v1/user/${id}`)
         .then(res => {
             const singleUserData = res.data;
             setSingleUser(singleUserData);
@@ -72,11 +72,11 @@ export default function UpdateUserFormDialog({id,setUsers}) {
          return errors;
        }}
        onSubmit={(values, { setSubmitting }) => {
-        axios.put(`http://localhost:8080/api/v1/user/${id}`,values)
+        api.put(`http://localhost:8080/api/v1/user/${id}`,values)
         .then(response => {
           console.log(response);
           setSubmitting(false);
-          axios.get(`http://localhost:8080/api/v1/user`)
+          api.get(`http://localhost:8080/api/v1/user`)
             .then(res => {
               const usersData = res.data;
               setUsers(usersData);

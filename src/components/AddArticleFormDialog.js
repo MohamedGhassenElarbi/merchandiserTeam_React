@@ -4,7 +4,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from "components/CustomButtons/Button.js";
-import axios from 'axios';
+import api from 'api';
 import { Form, Formik } from 'formik';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
@@ -17,7 +17,7 @@ export default function AddArticleFormDialog({setArticles}) {
 
   const handleClickOpen = () => {
     setOpen(true);
-    axios.get(`http://localhost:8080/api/v1/category`)
+    api.get(`http://localhost:8080/api/v1/category`)
         .then(res => {     
             setCategories(res.data);
         })
@@ -62,10 +62,10 @@ export default function AddArticleFormDialog({setArticles}) {
        }}
        onSubmit={(values, { setSubmitting }) => {
          console.log({values});
-        axios.post(`http://localhost:8080/api/v1/articles`, {...values,category:{id:values.category}})
+         api.post(`http://localhost:8080/api/v1/articles`, {...values,category:{id:values.category}})
         .then(response => {
           setSubmitting(false);
-          axios.get(`http://localhost:8080/api/v1/articles`)
+          api.get(`http://localhost:8080/api/v1/articles`)
             .then(res => {
               const articleData = res.data;
               setArticles(articleData); 

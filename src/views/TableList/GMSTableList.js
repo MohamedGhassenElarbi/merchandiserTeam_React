@@ -6,7 +6,7 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 import GMSTable from 'components/Table/GMSTable';
 import AddGMSFormDialog from 'components/AddGMSFormDialog'
-import axios from 'axios';
+import api from 'api';
 
 const styles = {
   cardCategoryWhite: {
@@ -44,7 +44,7 @@ export default function GMSTableList() {
   const classes = useStyles();
   const [gms, setGMS] = useState([]);
   useEffect(() => {
-    axios.get(`http://localhost:8080/api/v1/gms`)
+    api.get(`http://localhost:8080/api/v1/gms`)
         .then(res => {
             const gmsData = res.data;
             setGMS(gmsData);
@@ -53,7 +53,7 @@ export default function GMSTableList() {
 
 
 const handleRemove=(id) =>{
-    axios.delete(`http://localhost:8080/api/v1/gms/${id}`)
+    api.delete(`http://localhost:8080/api/v1/gms/${id}`)
     .then(res => {
       const newGMS = gms.filter(gms => id !== gms.id)
       setGMS(newGMS)

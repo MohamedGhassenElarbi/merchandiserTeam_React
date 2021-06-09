@@ -5,7 +5,7 @@ import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 import LeaveRequestTable from 'components/Table/LeaveRequestTable';
-import axios from 'axios';
+import api from 'api';
 
 const styles = {
   cardCategoryWhite: {
@@ -43,7 +43,7 @@ export default function LeaveRequestTableList() {
   const classes = useStyles();
   const [leaveRequests, setLeaveRequests] = useState([]);
   useEffect(() => {
-    axios.get(`http://localhost:8080/api/v1/leave`)
+    api.get(`http://localhost:8080/api/v1/leave`)
         .then(res => {
             const leaveRequestsData = res.data;
             setLeaveRequests(leaveRequestsData);
@@ -53,7 +53,7 @@ export default function LeaveRequestTableList() {
 
 
 const handleRemove=(id) =>{
-    axios.delete(`http://localhost:8080/api/v1/leave/${id}`)
+  api.delete(`http://localhost:8080/api/v1/leave/${id}`)
     .then(res => {
       const newLeaveRequests = leaveRequests.filter(leaveRequest => id !== leaveRequest.id)
       setLeaveRequests(newLeaveRequests)

@@ -6,7 +6,7 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 import ConcurrentTable from 'components/Table/ConcurrentTable';
 import AddConcurrentFormDialog from 'components/AddConcurrentFormDialog'
-import axios from 'axios';
+import api from 'api';
 
 const styles = {
   cardCategoryWhite: {
@@ -44,7 +44,7 @@ export default function ConcurrentTableList() {
   const classes = useStyles();
   const [concurrents, setConcurrents] = useState([]);
   useEffect(() => {
-    axios.get(`http://localhost:8080/api/v1/competitor`)
+    api.get(`http://localhost:8080/api/v1/competitor`)
         .then(res => {
             const concurrentsData = res.data;
             setConcurrents(concurrentsData);
@@ -52,7 +52,7 @@ export default function ConcurrentTableList() {
 }, [])
 
 const handleRemove=(id) =>{
-    axios.delete(`http://localhost:8080/api/v1/competitor/${id}`)
+  api.delete(`http://localhost:8080/api/v1/competitor/${id}`)
     .then(res => {
       const newConcurrents = concurrents.filter(concurrents => id !== concurrents.id)
       setConcurrents(newConcurrents)

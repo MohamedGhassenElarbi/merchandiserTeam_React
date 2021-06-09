@@ -7,7 +7,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import axios from 'axios';
+import api from 'api';
 import DeleteDialog from '../DeleteDialog';
 import UpdateCategoryFormDialog from '../UpdateCategoryFormDialog';
 
@@ -22,7 +22,7 @@ export default function CategoryTable({categories,setCategories}) {
   const classes = useStyles();
   // const [categories, setCategories] = useState([]);
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/v1/category`)
+      api.get(`http://localhost:8080/api/v1/category`)
             .then(res => {
                 const categoryData = res.data;
                 setCategories(categoryData);
@@ -33,7 +33,7 @@ export default function CategoryTable({categories,setCategories}) {
 
 
     const handleRemove=(id) =>{
-      axios.delete(`http://localhost:8080/api/v1/category/${id}`)
+      api.delete(`http://localhost:8080/api/v1/category/${id}`)
       .then(res => {
         const newCategories = categories.filter(category => id !== category.id)
         setCategories(newCategories)
@@ -45,10 +45,10 @@ export default function CategoryTable({categories,setCategories}) {
 
     const handleUpdate=(id,nomCat)=>{
      
-    axios.put(`http://localhost:8080/api/v1/category/${id}`, {nom:nomCat})
+      api.put(`http://localhost:8080/api/v1/category/${id}`, {nom:nomCat})
       .then(response => {
         console.log(response);
-        axios.get(`http://localhost:8080/api/v1/category`)
+        api.get(`http://localhost:8080/api/v1/category`)
           .then(res => {
             const categoryData = res.data;
             setCategories(categoryData);

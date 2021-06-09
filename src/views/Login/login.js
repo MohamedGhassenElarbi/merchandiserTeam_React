@@ -78,6 +78,7 @@ export default function SignIn() {
         axios.post(`http://localhost:8080/login`, values)
         .then(response => {
           console.log(response);
+          localStorage.setItem("TOKEN_KEY",response.data.token);
           setSubmitting(false);
         });
        }}

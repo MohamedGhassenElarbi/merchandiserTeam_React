@@ -11,7 +11,7 @@ import DeleteDialog from '../DeleteDialog';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
-import axios from 'axios';
+import api from 'api';
 
 
 const useStyles = makeStyles({
@@ -23,9 +23,9 @@ const useStyles = makeStyles({
 export default function LeaveRequestTable({leaveRequests,handleRemove,setLeaveRequests}) {
   const classes = useStyles();
   const handleChangeLeaveRequest =(result,id)=>{
-    axios.put(`http://localhost:8080/api/v1/leave/${id}`,{state:result} )
+    api.put(`http://localhost:8080/api/v1/leave/${id}`,{state:result} )
         .then(response => {
-            axios.get(`http://localhost:8080/api/v1/leave`)
+          api.get(`http://localhost:8080/api/v1/leave`)
             .then(res => {
                 setLeaveRequests(res.data); 
             })

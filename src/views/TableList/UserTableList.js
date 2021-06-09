@@ -8,7 +8,7 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 import UserTable from 'components/Table/UserTable';
 import AddUserFormDialog from 'components/AddUserFormDialog'
-import axios from 'axios';
+import api from 'api';
 
 const styles = {
   cardCategoryWhite: {
@@ -46,7 +46,7 @@ export default function UserTableList() {
   const classes = useStyles();
   const [users, setUsers] = useState([]);
   useEffect(() => {
-    axios.get(`http://localhost:8080/api/v1/user`)
+    api.get(`http://localhost:8080/api/v1/user`)
         .then(res => {
             const usersData = res.data;
             setUsers(usersData);
@@ -57,7 +57,7 @@ export default function UserTableList() {
 
 
 const handleRemove=(id) =>{
-    axios.delete(`http://localhost:8080/api/v1/user/${id}`)
+  api.delete(`http://localhost:8080/api/v1/user/${id}`)
     .then(res => {
       const newUsers = users.filter(users => id !== users.id)
       setUsers(newUsers)

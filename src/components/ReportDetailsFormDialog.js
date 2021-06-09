@@ -7,8 +7,14 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
 import DetailIcon from '@material-ui/icons/Visibility';
-import axios from 'axios';
+import api from 'api';
 import BeforeAfterEventAccordion from 'components/BeforeAfterEventAccordion'
+import NewProductEventAccordion from 'components/NewProductEventAccordion'
+import ProductsVsCompetitorEventAccordion from 'components/ProductsVsCompetitorEventAccordion'
+import PriceChangeEventAccordion from 'components/PriceChangeEventAccordion'
+import ActionEventAccordion from 'components/ActionEventAccordion'
+import PromotionEventAccordion from 'components/PromotionEventAccordion'
+
 
 export default function DeleteArticleDialog({id}) {
 
@@ -16,7 +22,7 @@ export default function DeleteArticleDialog({id}) {
   const [singleReport, setSingleReport] = useState({});
   const handleClickOpen = () => {
     setOpen(true);
-    axios.get(`http://localhost:8080/api/v1/report/${id}`)
+    api.get(`http://localhost:8080/api/v1/report/${id}`)
         .then(res => {
             console.log(res.data);
             const reportData = res.data;
@@ -57,8 +63,23 @@ export default function DeleteArticleDialog({id}) {
             {/* {singleReport?.gms?.name}//optional chaining */}
           </DialogContentText>
           {singleReport?.events?.map(val => {
-            if(val.type=="BeforeAfter")
-            return <BeforeAfterEventAccordion key={val.id} before={val.imageBefore} after={val.imageAfter} product={val.product.designation}/>;
+            if(val.type=="BeforeAfter"){
+            return <BeforeAfterEventAccordion key={val.id} before={val.imageBefore} after={val.imageAfter} product={val.product.designation}/>;}
+            if(val.type=="NewProduct"){
+            return <NewProductEventAccordion key={val.id} image={val.imageProduct} product={val.product.designation}/>; 
+            }
+            if(val.type=="ProductVsCompetitor"){
+            return <ProductsVsCompetitorEventAccordion key={val.id} imageProduct={val.imageProduct} imageCompetitor={val.imageCompetitor} product={val.product.designation}competitor={val.competitor.name}/>; 
+            }
+            if(val.type=="Promotion"){
+               return <PromotionEventAccordion key={val.id} product={val.product.designation} listOfPictures={val.images} startDate={val.startDate} endDate={val.endDate} oldPrice={val.oldPrice} newPrice={val.newPrice}/>; 
+            }
+            if(val.type=="PriceChange"){
+              return <PriceChangeEventAccordion key={val.id} oldPrice={val.oldPrice} newPrice={val.newPrice} product={val.product.designation}/>; 
+            }
+            if(val.type=="Action"){
+              return <ActionEventAccordion key={val.id} title={val.title} listOfPictures={val.images}/>; 
+            }
           })}
         </DialogContent>
         <DialogActions>

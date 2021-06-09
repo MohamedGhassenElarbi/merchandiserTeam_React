@@ -6,7 +6,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import Button from "components/CustomButtons/Button.js";
 import TextField from '@material-ui/core/TextField';
-import axios from 'axios';
+import api from 'api';
 import { Form, Formik } from 'formik';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
@@ -74,11 +74,11 @@ export default function AddGMSFormDialog({setUsers}) {
          return errors;
        }}
        onSubmit={(values, { setSubmitting }) => {
-        axios.post(`http://localhost:8080/api/v1/user`, values)
+        api.post(`http://localhost:8080/api/v1/user`, values)
         .then(response => {
           console.log(response);
           setSubmitting(false);
-          axios.get(`http://localhost:8080/api/v1/user`)
+          api.get(`http://localhost:8080/api/v1/user`)
             .then(res => {
               const usersData = res.data;
               setUsers(usersData);  

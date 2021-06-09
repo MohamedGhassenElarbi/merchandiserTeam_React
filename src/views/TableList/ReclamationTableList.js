@@ -5,7 +5,7 @@ import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 import ReclamationTable from 'components/Table/ReclamationTable';
-import axios from 'axios';
+import api from 'api';
 
 const styles = {
   cardCategoryWhite: {
@@ -43,7 +43,7 @@ export default function ReclamationTableList() {
   const classes = useStyles();
   const [reclamations, setReclamations] = useState([]);
   useEffect(() => {
-    axios.get(`http://localhost:8080/api/v1/reclamation`)
+    api.get(`http://localhost:8080/api/v1/reclamation`)
         .then(res => {
             const reclamationData = res.data;
             setReclamations(reclamationData);
@@ -53,7 +53,7 @@ export default function ReclamationTableList() {
 }, [])
 
 const handleRemove=(id) =>{
-  axios.delete(`http://localhost:8080/api/v1/reclamation/${id}`)
+  api.delete(`http://localhost:8080/api/v1/reclamation/${id}`)
   .then(res => {
     const newReclamations = reclamations.filter(reclamation => id !== reclamation.id)
     setReclamations(newReclamations)

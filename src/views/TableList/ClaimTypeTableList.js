@@ -6,7 +6,7 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 import ClaimTypeTable from 'components/Table/ClaimTypeTable';
 import AddClaimTypeFormDialog from 'components/AddClaimTypeFormDialog'
-import axios from 'axios';
+import api from 'api';
 
 const styles = {
   cardCategoryWhite: {
@@ -44,7 +44,7 @@ export default function ClaimTypeTableList() {
   const classes = useStyles();
   const [claimTypes, setClaimTypes] = useState([]);
   useEffect(() => {
-    axios.get(`http://localhost:8080/api/v1/claimtype`)
+    api.get(`http://localhost:8080/api/v1/claimtype`)
         .then(res => {
             const claimTypesData = res.data;
             setClaimTypes(claimTypesData);
@@ -53,7 +53,7 @@ export default function ClaimTypeTableList() {
 
 
 const handleRemove=(id) =>{
-    axios.delete(`http://localhost:8080/api/v1/claimtype/${id}`)
+  api.delete(`http://localhost:8080/api/v1/claimtype/${id}`)
     .then(res => {
       const newClaimTypes = claimTypes.filter(claimType => id !== claimType.id)
       setClaimTypes(newClaimTypes)

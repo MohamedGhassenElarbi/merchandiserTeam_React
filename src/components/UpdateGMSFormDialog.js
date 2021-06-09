@@ -4,7 +4,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from "components/CustomButtons/Button.js";
-import axios from 'axios';
+import api from 'api';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 import { Form, Formik,Field } from 'formik';
@@ -16,7 +16,7 @@ export default function UpdateGMSFormDialog({id,setGMS}) {
 
   const handleClickOpen = () => {
     setOpen(true);
-    axios.get(`http://localhost:8080/api/v1/gms/${id}`)
+    api.get(`http://localhost:8080/api/v1/gms/${id}`)
         .then(res => {
             const gmsData = res.data;
             setSingleGMS(gmsData);
@@ -58,10 +58,10 @@ export default function UpdateGMSFormDialog({id,setGMS}) {
          return errors;
        }}
        onSubmit={(values, { setSubmitting }) => {  
-        axios.put(`http://localhost:8080/api/v1/gms/${id}`,values)
+        api.put(`http://localhost:8080/api/v1/gms/${id}`,values)
         .then(response => {
           setSubmitting(false);
-          axios.get(`http://localhost:8080/api/v1/gms`)
+          api.get(`http://localhost:8080/api/v1/gms`)
             .then(res => {
               const gmsData = res.data;
               setGMS(gmsData);

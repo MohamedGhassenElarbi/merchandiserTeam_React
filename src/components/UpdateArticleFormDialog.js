@@ -4,7 +4,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from "components/CustomButtons/Button.js";
-import axios from 'axios';
+import api from 'api';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 import { Form, Formik } from 'formik';
@@ -20,12 +20,12 @@ export default function UpdateCategoryFormDialog({id,setArticles}) {
 
   const handleClickOpen = () => {
     setOpen(true);
-    axios.get(`http://localhost:8080/api/v1/articles/${id}`)
+    api.get(`http://localhost:8080/api/v1/articles/${id}`)
         .then(res => {
             const articleData = res.data;
             setArticle(articleData);
         })
-        axios.get(`http://localhost:8080/api/v1/category`)
+        api.get(`http://localhost:8080/api/v1/category`)
         .then(res => {
           const categoryData = res.data;
             setCategories(categoryData);
@@ -73,10 +73,10 @@ export default function UpdateCategoryFormDialog({id,setArticles}) {
        }}
        onSubmit={(values, { setSubmitting }) => {
          console.log(values);
-        axios.put(`http://localhost:8080/api/v1/articles/${id}`,{...values,category:{id:values.category}})
+         api.put(`http://localhost:8080/api/v1/articles/${id}`,{...values,category:{id:values.category}})
         .then(response => {
           setSubmitting(false);
-          axios.get(`http://localhost:8080/api/v1/articles`)
+          api.get(`http://localhost:8080/api/v1/articles`)
             .then(res => {
               const articleData = res.data;
               setArticles(articleData);

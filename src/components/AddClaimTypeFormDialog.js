@@ -4,7 +4,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from "components/CustomButtons/Button.js";
-import axios from 'axios';
+import api from 'api';
 import { Form, Formik } from 'formik';
 import CustomTextField from 'components/CustomInput/CustomTextField';
 
@@ -35,10 +35,10 @@ export default function AddClaimTypeFormDialog({setClaimTypes}) {
          return errors;
        }}
        onSubmit={(values, { setSubmitting }) => {
-        axios.post(`http://localhost:8080/api/v1/claimtype`,values )
+        api.post(`http://localhost:8080/api/v1/claimtype`,values )
         .then(response => {
           setSubmitting(false);
-          axios.get(`http://localhost:8080/api/v1/claimtype`)
+          api.get(`http://localhost:8080/api/v1/claimtype`)
             .then(res => {
               const claimTypesData = res.data;
               setClaimTypes(claimTypesData); 

@@ -5,8 +5,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from "components/CustomButtons/Button.js";
 import TextField from '@material-ui/core/TextField';
-import axios from 'axios';
 import Typography from '@material-ui/core/Typography';
+import api from 'api';
 
 export default function AddCategoryFormDialog({ setCategories }) {
   const [open, setOpen] = React.useState(false);
@@ -28,9 +28,9 @@ export default function AddCategoryFormDialog({ setCategories }) {
     }
     const categorie = { nom: nomCat };
     console.log(nomCat);
-    axios.post(`http://localhost:8080/api/v1/category`, categorie)
+    api.post(`http://localhost:8080/api/v1/category`, categorie)
       .then(response => {
-        axios.get(`http://localhost:8080/api/v1/category`)
+        api.get(`http://localhost:8080/api/v1/category`)
           .then(res => {
             const categoryData = res.data;
             setCategories(categoryData);

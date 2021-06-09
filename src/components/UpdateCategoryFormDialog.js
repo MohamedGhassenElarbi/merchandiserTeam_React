@@ -6,7 +6,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import Button from "components/CustomButtons/Button.js";
 import TextField from '@material-ui/core/TextField';
-import axios from 'axios';
+import api from 'api';
 import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
@@ -23,7 +23,7 @@ export default function UpdateCategoryFormDialog({ id,handleUpdate }) {
   const [messageError, setMessageError] = useState(false);
   const handleClickOpen = () => {
     setOpen(true);
-    axios.get(`http://localhost:8080/api/v1/category/${id}`)
+    api.get(`http://localhost:8080/api/v1/category/${id}`)
         .then(res => {
             const categoryData = res.data;
             setNomCat(categoryData.nom);

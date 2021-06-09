@@ -5,7 +5,7 @@ import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 import ReportTable from 'components/Table/ReportTable';
-import axios from 'axios';
+import api from 'api';
 
 const styles = {
   cardCategoryWhite: {
@@ -44,7 +44,7 @@ export default function ReportTableList() {
   const [reports, setReports] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/api/v1/report`)
+    api.get(`http://localhost:8080/api/v1/report`)
         .then(res => {
             console.log(res.data);
             const reportsData = res.data;
@@ -54,7 +54,7 @@ export default function ReportTableList() {
 
 
 const handleRemove=(id) =>{
-    axios.delete(`http://localhost:8080/api/v1/report/${id}`)
+  api.delete(`http://localhost:8080/api/v1/report/${id}`)
     .then(res => {
       const newReports = reports.filter(report => id !== report.id)
       setReports(newReports)
