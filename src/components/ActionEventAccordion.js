@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: theme.typography.fontWeightRegular,
   },
   cardsCss:{
-    // width:'100%',
+     display:'Block',
     // display: 'flex',
     // justifyContent:'space-between',
     // marginLeft: 60,
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ActionEventAccordion({listOfPictures,title}) {
+export default function ActionEventAccordion({listOfPictures,title,product}) {
   const classes = useStyles();
 
   return (
@@ -39,7 +39,24 @@ export default function ActionEventAccordion({listOfPictures,title}) {
         </AccordionSummary>
         <AccordionDetails>
           <div className={classes.cardsCss}>
+        <Typography variant="h5" component="h2">
+        {` ${title}`}
+        </Typography>
+        <Typography className={classes.pos} color="textSecondary">
+          {product.designation}
+        </Typography>
+        <Typography variant="body2" component="p">
+          <strong>code Produit : </strong>{product.codeProduit}
+          <br />
+        </Typography>
+        <Typography variant="body2" component="p">
+          <strong>Référence : </strong>{product.reference}
+          <br />
+        </Typography>
+        <br />
+          <div className={classes.cardsCss}>
             <GridList listOfPictures={listOfPictures}></GridList>
+          </div>
           </div>
         </AccordionDetails>
       </Accordion>

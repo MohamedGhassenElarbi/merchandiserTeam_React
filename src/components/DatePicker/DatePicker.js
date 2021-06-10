@@ -8,7 +8,7 @@ export default function DatePicker({handleChange,settedValue,label,id}) {
     <KeyboardDatePicker
         disableToolbar
         variant="inline"
-        format="dd/MM/yyyy"
+        format="dd-MM-yyyy"
         margin="normal"
         id={id}
         label={label}

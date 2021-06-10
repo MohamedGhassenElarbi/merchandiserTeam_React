@@ -43,7 +43,7 @@ export default function GMSTable({gms,handleRemove,setGMS}) {
               <TableCell align="right">{row.longitude}</TableCell>
               <TableCell align="right">{row.latitude}</TableCell>
               <TableCell align="right">
-              <GMSDetailsFormDialog/>
+              {/* <GMSDetailsFormDialog name={row.name} image={row.image}/> */}
               <UpdateGMSFormDialog id={row.id} setGMS={setGMS}/>
               
               <DeleteDialog id={row.id} handleRemove={handleRemove}removedElementName={"cette GMS"}/>

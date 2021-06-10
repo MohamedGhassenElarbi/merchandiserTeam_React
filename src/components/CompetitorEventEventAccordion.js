@@ -5,8 +5,7 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import BeforeAfterImageCard from 'components/Card/BeforeAfterImageCard';
-import ProductDetailsCard from 'components/Card/ProductDetailsCard'
+import GridList from 'components/Grid/GridList';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,12 +16,15 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: theme.typography.fontWeightRegular,
   },
   cardsCss:{
-    width:'100%',
-    display: 'flex',
+     display:'Block',
+    // display: 'flex',
+    // justifyContent:'space-between',
+    // marginLeft: 60,
+    // marginRight: 60
   },
 }));
 
-export default function NewProductEventAccordion({image,product}) {
+export default function CompetitorEventEventAccordion({listOfPictures,competitor}) {
   const classes = useStyles();
 
   return (
@@ -33,13 +35,18 @@ export default function NewProductEventAccordion({image,product}) {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography className={classes.heading}>{`Nouveau Produit :  ${product.designation}`}</Typography>
+          <Typography className={classes.heading}>{`Concurrent : ${competitor.name}`}</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <div className={classes.cardsCss}>
-          <BeforeAfterImageCard message={product.designation}image={image}/>
-          <ProductDetailsCard product={product}/>
+        <Typography className={classes.pos} color="textSecondary">
+        <strong>Concurrent : </strong>{competitor.name}
+        </Typography>
+        <br/>
+          <div className={classes.cardsCss}>
+            <GridList listOfPictures={listOfPictures}></GridList>
           </div>
+        </div>
         </AccordionDetails>
       </Accordion>
     </div>

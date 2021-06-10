@@ -79,9 +79,6 @@ const handleRemove=(id) =>{
           </CardHeader>
           <CardBody>
             <UserTable setUsers={setUsers} users={users} handleRemove={handleRemove}/>
-
-            
-            
           </CardBody>
         </Card>
       </GridItem>

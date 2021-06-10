@@ -113,13 +113,7 @@ const dashboardRoutes = [
     component: CategoryTableList,
     layout: "/admin"
   },
-  {
-    path: "/login",
-    name: "login",
-    icon: Lock,
-    component: login,
-    layout: "/login"
-  }
+  
 ];
 
 export default dashboardRoutes;

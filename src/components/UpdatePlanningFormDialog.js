@@ -4,7 +4,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from "components/CustomButtons/Button.js";
-import axios from 'axios';
+import api from 'api';
 import {format,parse} from 'date-fns';
 import {
   MuiPickersUtilsProvider
@@ -12,8 +12,9 @@ import {
 import DateFnsUtils from '@date-io/date-fns';
 import DatePicker from 'components/DatePicker/DatePicker'
 import CustomSelect from 'components/Select/CustomSelect';
+import EditIcon from '@material-ui/icons/Edit';
 
-export default function UpdatePlanningFormDialog() {
+export default function UpdatePlanningFormDialog({refreshTask}) {
   const [open, setOpen] = React.useState(false);
   const [listGMS, setListGMS] = useState([]);
   const [listMerchandisers, setListMerchandisers] = useState([]);
@@ -30,12 +31,12 @@ export default function UpdatePlanningFormDialog() {
   const [currentPlanning, setCurrentPlanning] = useState();
   const handleClickOpen = () => {
     setOpen(true);
-    axios.get(`http://localhost:8080/api/v1/gms`)
+    api.get(`http://localhost:8080/api/v1/gms`)
         .then(res => {   
           setListGMS(res.data);
         });
         
-        axios.get(`http://localhost:8080/api/v1/user/role/MERCHANDISER`)
+        api.get(`http://localhost:8080/api/v1/user/role/MERCHANDISER`)
         .then(res => { 
           setListMerchandisers(res.data);
         });     
@@ -81,7 +82,7 @@ export default function UpdatePlanningFormDialog() {
   };
   const handleChangeMerchandiser = (selectedOption) => {
     setSelectedMerchandiser(selectedOption );
-    axios.get(`http://localhost:8080/api/v1/taskPlanning/merchandiser/${selectedOption.id}`)
+    api.get(`http://localhost:8080/api/v1/taskPlanning/merchandiser/${selectedOption.id}`)
         .then(res => {
           setCurrentPlanning(res.data);
         },);     
@@ -172,15 +173,16 @@ export default function UpdatePlanningFormDialog() {
      })
      tasksArr = [...tasksArr,...arr] 
      console.log(selectedMerchandiser.id);
-     axios.put(`http://localhost:8080/api/v1/taskPlanning/${selectedMerchandiser.id}`, {startDate:format(new Date(selectedStartDate), 'dd-MM-yyyy'),endDate:format(new Date(selectedEndDate), 'dd-MM-yyyy'),tasks:tasksArr,merchandiser:selectedMerchandiser})
+     api.put(`http://localhost:8080/api/v1/taskPlanning/${currentPlanning.id}`, {startDate:format(new Date(selectedStartDate), 'dd-MM-yyyy'),endDate:format(new Date(selectedEndDate), 'dd-MM-yyyy'),tasks:tasksArr,merchandiser:selectedMerchandiser})
         .then(res => {
+          refreshTask(selectedMerchandiser.id)
         });
         setOpen(false);
   }
   return (
     <>
 
-      <Button color="primary" round onClick={handleClickOpen}>Mise a jour d'un planning</Button>
+      <Button color="primary" round onClick={handleClickOpen}><EditIcon color="default" />Mise a jour d'un planning</Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Mise a jour d'un planning</DialogTitle>
         <DialogContent>

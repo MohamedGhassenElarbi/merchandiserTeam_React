@@ -14,6 +14,8 @@ import ProductsVsCompetitorEventAccordion from 'components/ProductsVsCompetitorE
 import PriceChangeEventAccordion from 'components/PriceChangeEventAccordion'
 import ActionEventAccordion from 'components/ActionEventAccordion'
 import PromotionEventAccordion from 'components/PromotionEventAccordion'
+import RuptureEventAccordion from 'components/RuptureEventAccordion'
+import CompetitorEventEventAccordion from 'components/CompetitorEventEventAccordion'
 
 
 export default function DeleteArticleDialog({id}) {
@@ -54,7 +56,7 @@ export default function DeleteArticleDialog({id}) {
         <DialogTitle id="alert-dialog-slide-title">{`rapport du ${singleReport?.gms?.name}`}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            Réaliser par le merchandiseur FOULEN
+            Réaliser par le merchandiseur {singleReport?.merchandiser?.name}
           </DialogContentText>
           <DialogContentText id="alert-dialog-slide-description">
             {/* {singleReport.id} */}
@@ -66,7 +68,7 @@ export default function DeleteArticleDialog({id}) {
             if(val.type=="BeforeAfter"){
             return <BeforeAfterEventAccordion key={val.id} before={val.imageBefore} after={val.imageAfter} product={val.product.designation}/>;}
             if(val.type=="NewProduct"){
-            return <NewProductEventAccordion key={val.id} image={val.imageProduct} product={val.product.designation}/>; 
+            return <NewProductEventAccordion key={val.id} image={val.imageProduct} product={val.product}/>; 
             }
             if(val.type=="ProductVsCompetitor"){
             return <ProductsVsCompetitorEventAccordion key={val.id} imageProduct={val.imageProduct} imageCompetitor={val.imageCompetitor} product={val.product.designation}competitor={val.competitor.name}/>; 
@@ -78,7 +80,13 @@ export default function DeleteArticleDialog({id}) {
               return <PriceChangeEventAccordion key={val.id} oldPrice={val.oldPrice} newPrice={val.newPrice} product={val.product.designation}/>; 
             }
             if(val.type=="Action"){
-              return <ActionEventAccordion key={val.id} title={val.title} listOfPictures={val.images}/>; 
+              return <ActionEventAccordion key={val.id} title={val.title} listOfPictures={val.images}product={val.product}/>; 
+            }
+            if(val.type=="Rupture"){
+              return <RuptureEventAccordion key={val.id} image={val.image} products={val.products}/>; 
+            }
+            if(val.type=="CompetitorEvent"){
+              return <CompetitorEventEventAccordion key={val.id} listOfPictures={val.images} competitor={val.competitor}/>; 
             }
           })}
         </DialogContent>

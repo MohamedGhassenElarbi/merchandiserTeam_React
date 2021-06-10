@@ -6,7 +6,6 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import BeforeAfterImageCard from 'components/Card/BeforeAfterImageCard';
-import ProductDetailsCard from 'components/Card/ProductDetailsCard'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,12 +16,18 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: theme.typography.fontWeightRegular,
   },
   cardsCss:{
-    width:'100%',
-    display: 'flex',
+     display:'flex',
+    // display: 'flex',
+    // justifyContent:'space-between',
+    // marginLeft: 60,
+    // marginRight: 60
   },
+  prod:{
+    display:'block', 
+  }
 }));
 
-export default function NewProductEventAccordion({image,product}) {
+export default function RuptureEventAccordion({image,products}) {
   const classes = useStyles();
 
   return (
@@ -33,13 +38,22 @@ export default function NewProductEventAccordion({image,product}) {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography className={classes.heading}>{`Nouveau Produit :  ${product.designation}`}</Typography>
+          <Typography className={classes.heading}>{`Rupture`}</Typography>
         </AccordionSummary>
         <AccordionDetails>
+        <AccordionDetails>
           <div className={classes.cardsCss}>
-          <BeforeAfterImageCard message={product.designation}image={image}/>
-          <ProductDetailsCard product={product}/>
+          <BeforeAfterImageCard image={image}/>
+
+          <div style={{display:'block'}}>
+          {products.map(token =>
+              <Typography key={token.id} className={classes.pos} color="textSecondary">
+          {token.designation} </Typography>
+          )}
           </div>
+          
+          </div>
+        </AccordionDetails>
         </AccordionDetails>
       </Accordion>
     </div>

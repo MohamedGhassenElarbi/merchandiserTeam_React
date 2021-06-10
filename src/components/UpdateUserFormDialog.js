@@ -13,6 +13,14 @@ import { Form, Formik } from 'formik';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import CustomTextField from 'components/CustomInput/CustomTextField';
+import {format,parse} from 'date-fns';
+import CustomSelect from 'components/Select/CustomSelect';
+import DatePicker from 'components/DatePicker/DatePicker'
+import {
+  MuiPickersUtilsProvider
+} from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -22,14 +30,28 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function UpdateUserFormDialog({id,setUsers}) {
   const [open, setOpen] = React.useState(false);
   const [singleUser, setSingleUser] = useState({});
-
+  const [role, setRole] = useState();
+  const [dateOfBirth, setDateOfBirth] = useState();
+  const listOfRoles = [
+    { id: 'MERCHANDISER', name: 'MERCHANDISER' },
+    { id: 'ADMIN', name: 'ADMIN' },
+    { id: 'SUPERVISOR', name: 'SUPERVISOR' }
+  ]
+  const handleChangeRole=(e)=>{
+    setRole(e)
+    console.log(e);
+  }
+  const handleChangeDate =(e)=>{
+    setDateOfBirth(e)
+  }
   const handleClickOpen = () => {
     setOpen(true);
     api.get(`http://localhost:8080/api/v1/user/${id}`)
         .then(res => {
             const singleUserData = res.data;
-            setSingleUser(singleUserData);
-            
+            setSingleUser(singleUserData)
+            setRole({id:singleUserData.role,name:singleUserData.role});
+            setDateOfBirth(format(new Date(singleUserData.dob), 'dd-MM-yyyy'));
 
         })
   };
@@ -60,19 +82,17 @@ export default function UpdateUserFormDialog({id,setUsers}) {
           if (!values.phone) {
             errors.phone = 'Required';
           }
-          if (!values.role) {
-            errors.role = 'Required';
-          }
-          if (!values.dob) {
-            errors.dob = 'Required';
-          }
-          if (!values.username) {
-            errors.username = 'Required';
-          }
+          // if (!values.dob) {
+          //   errors.dob = 'Required';
+          // }
+          // if (!values.username) {
+          //   errors.username = 'Required';
+          // }
          return errors;
        }}
        onSubmit={(values, { setSubmitting }) => {
-        api.put(`http://localhost:8080/api/v1/user/${id}`,values)
+         console.log(role.id);
+        api.put(`http://localhost:8080/api/v1/user/${id}`,{name:values.name,email:values.email,phone:values.phone,dob:format(new Date(dateOfBirth), 'dd-MM-yyyy'),role:role.id})
         .then(response => {
           console.log(response);
           setSubmitting(false);
@@ -97,55 +117,18 @@ export default function UpdateUserFormDialog({id,setUsers}) {
          isSubmitting,
        }) => (
          <Form >
-           <TextField 
-             fullWidth
-             margin="normal"
-             type="text"
-             name="name"
-             onChange={handleChange}
-             onBlur={handleBlur}
-             value={values.name}
-             placeholder="Nom"
-           /><br />
-           {errors.name && touched.name && errors.name}
-           <TextField
-             fullWidth
-             margin="normal"
-             type="email"
-             name="email"
-             onChange={handleChange}
-             onBlur={handleBlur}
-             value={values.email}
-             placeholder="email"
-           /><br />
-           {errors.email && touched.email && errors.email}
-           <TextField
-             fullWidth
-             margin="normal"
-             type="text"
-             name="phone"
-             onChange={handleChange}
-             onBlur={handleBlur}
-             value={values.phone}
-             placeholder="Numero de Telephone"
-           /><br />
-           {errors.phone && touched.phone && errors.phone}
-           <InputLabel  shrink id="cat" >Role:</InputLabel>
-           <Select
-             labelId="cat"
-             name="role"
-             fullWidth
-             onChange={handleChange}
-             onBlur={handleBlur}
-            //  value={values.categorie}
-           >
-             <MenuItem  key={values.id} value={values.role}>{values.role}</MenuItem >
-             <MenuItem  key={values.id} value="MERCHANDISER">Merchandiseur</MenuItem >
-             <MenuItem  key={values.id} value="ADMIN">Admin</MenuItem >
-             <MenuItem  key={values.id} value="SUPERVISOR">Superviseur</MenuItem >
-           </Select><br />
-           {errors.role && touched.role && errors.role}
-           <TextField
+           <CustomTextField handleChange={handleChange} handleBlur={handleBlur} settedValue={values.name} placeHolderValue={"Nom"} name={"name"}></CustomTextField>
+        <br />
+        {errors.name && touched.name && errors.name}
+        <CustomTextField handleChange={handleChange} handleBlur={handleBlur} settedValue={values.email} placeHolderValue={"Email"} name={"email"} type={"email"}></CustomTextField>
+        <br />
+        {errors.email && touched.email && errors.email}
+        <CustomTextField handleChange={handleChange} handleBlur={handleBlur} settedValue={values.phone} placeHolderValue={"Numero de Telephone"} name={"phone"}></CustomTextField>
+        <br />
+        {errors.phone && touched.phone && errors.phone}
+        <CustomSelect handleChange={handleChangeRole}initialValue={role} optionsList={listOfRoles} placeHolderValue={"Role"}></CustomSelect>
+        <br />
+           {/* <TextField
              fullWidth
              margin="normal"
              type="text"
@@ -154,19 +137,15 @@ export default function UpdateUserFormDialog({id,setUsers}) {
              onBlur={handleBlur}
              value={values.dob}
              placeholder="Date de Naissance"
-           /><br />
+           /> */}
+           <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <DatePicker handleChange={handleChangeDate} settedValue={dateOfBirth} label={"Date Naissance"} id={"dob"}></DatePicker>
+          </MuiPickersUtilsProvider>
+           <br />
            {errors.dob && touched.dob && errors.dob}
-           <TextField
-             fullWidth
-             margin="normal"
-             type="text"
-             name="username"
-             onChange={handleChange}
-             onBlur={handleBlur}
-             value={values.username}
-             placeholder="Nom de l'utilisateur"
-           /><br />
-           {errors.username && touched.username && errors.username}
+           {/* <CustomTextField handleChange={handleChange} handleBlur={handleBlur} settedValue={values.username} placeHolderValue={"Nom de l'utilisateur"} name={"username"}></CustomTextField>
+           <br />
+            {errors.username && touched.username && errors.username} */}
            <DialogActions>
           <Button color="primary" type="submit" disabled={isSubmitting}>
             Modifier

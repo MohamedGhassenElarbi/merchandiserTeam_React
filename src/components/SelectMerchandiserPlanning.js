@@ -20,7 +20,7 @@ const handleChange = (event) => {
         <div>
         <FormControl className={classes.formControl}>
         <InputLabel id="demo-simple-select-helper-label">Merchandiseur</InputLabel>
-        <CustomSelect handleChange={handleChange} optionsList={merchandisers} placeHolderValue={"Merchandiser"}initialValue={merchandiser}></CustomSelect>
+        <div style={{width:'300px'}}><CustomSelect handleChange={handleChange} optionsList={merchandisers} placeHolderValue={"Merchandiser"}initialValue={merchandiser}></CustomSelect></div>
         <FormHelperText>Choisir le merchandiseur conçerné</FormHelperText>
         </FormControl>
         </div>

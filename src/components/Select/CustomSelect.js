@@ -8,21 +8,21 @@ const useStyles = makeStyles((theme) => ({
       },
 }));
 
-export default function CustomSelect({handleChange,optionsList,placeHolderValue,isMulti,initialValue}) {
+export default function CustomSelect({handleChange,optionsList,placeHolderValue,isMulti,initialValue,optionLabel='name'}) {
   const classes = useStyles();
 
   return (
     <div className={classes.selectCss}>
         <Select
           defaultValue={[]}
-          name="colors"
+          name="select"
           isMulti={isMulti}
           options={optionsList}
           className="basic-single-select"
           classNamePrefix="select"
           placeholder={placeHolderValue}
           maxMenuHeight
-          getOptionLabel={option => option['name']}
+          getOptionLabel={option => option[optionLabel]}
           getOptionValue={option => option['id']}
           onChange={handleChange}
           value={initialValue}

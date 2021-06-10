@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: theme.typography.fontWeightRegular,
   },
   cardsCss:{
-    // width:'100%',
+     display:'Block',
     // display: 'flex',
     // justifyContent:'space-between',
     // marginLeft: 60,
@@ -38,13 +38,24 @@ export default function PromotionEventAccordion({listOfPictures,product,startDat
           <Typography className={classes.heading}>{`Promotion : ${product}`}</Typography>
         </AccordionSummary>
         <AccordionDetails>
-            <div>{startDate}</div>
-            <div>{endDate}</div>
-            <div>{oldPrice}</div>
-            <div>{newPrice}</div>
+          <div className={classes.cardsCss}>
+        <Typography className={classes.pos} color="textSecondary">
+        <strong>Date Début : </strong>{startDate}
+        </Typography>
+        <Typography className={classes.pos} color="textSecondary">
+        <strong>Date Fin : </strong>{endDate}
+        </Typography>
+        <Typography className={classes.pos} color="textSecondary">
+        <strong>Ancien Prix : </strong>{oldPrice}
+        </Typography>
+        <Typography className={classes.pos} color="textSecondary">
+        <strong>Nouveau Prix : </strong>{newPrice}
+        </Typography>
+        <br/>
           <div className={classes.cardsCss}>
             <GridList listOfPictures={listOfPictures}></GridList>
           </div>
+        </div>
         </AccordionDetails>
       </Accordion>
     </div>

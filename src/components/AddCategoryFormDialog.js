@@ -4,9 +4,9 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from "components/CustomButtons/Button.js";
-import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import api from 'api';
+import CustomTextField from 'components/CustomInput/CustomTextField';
 
 export default function AddCategoryFormDialog({ setCategories }) {
   const [open, setOpen] = React.useState(false);
@@ -51,15 +51,7 @@ export default function AddCategoryFormDialog({ setCategories }) {
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Ajouter une Nouvelle Catégorie</DialogTitle>
         <DialogContent>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Nom du Catégorie"
-            type="text"
-            onChange={handleChange}
-            fullWidth
-          />
+          <CustomTextField handleChange={handleChange}settedValue={nomCat} placeHolderValue={"Catégorie"} ></CustomTextField>
           {(messageError) &&
             <Typography variant="caption" color='error' display="block" gutterBottom>
               veiller remplir tous les champs

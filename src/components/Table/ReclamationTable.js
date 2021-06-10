@@ -8,6 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import DeleteDialog from '../DeleteDialog';
+import ReclamationDetailFormDialog from '../ReclamationDetailFormDialog';
 
 const useStyles = makeStyles({
   table: {
@@ -41,7 +42,10 @@ export default function ReclamationTable({reclamations,handleRemove}) {
               <TableCell align="right">{row.content}</TableCell>
               <TableCell align="right">{row.gms.name}</TableCell>
               <TableCell align="right">{row.merchandiser.name}</TableCell>
-              <TableCell align="right"><DeleteDialog id={row.id} handleRemove={handleRemove}removedElementName={"cette réclamation"}/></TableCell>
+              <TableCell align="right">
+                <ReclamationDetailFormDialog image={row.image} content={row.content} name={"Réclamation"}/>
+                <DeleteDialog id={row.id} handleRemove={handleRemove}removedElementName={"cette réclamation"}/>
+                </TableCell>
             </TableRow>
           ))}
         </TableBody>

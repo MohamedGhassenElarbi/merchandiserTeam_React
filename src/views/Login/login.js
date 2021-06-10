@@ -14,6 +14,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Form, Formik } from 'formik';
 import axios from 'axios';
+import {useHistory} from 'react-router-dom'
+
 
 function Copyright() {
   return (
@@ -50,6 +52,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
   const classes = useStyles();
+  const history=useHistory();
 
   return (
     <Container component="main" maxWidth="xs">
@@ -80,6 +83,7 @@ export default function SignIn() {
           console.log(response);
           localStorage.setItem("TOKEN_KEY",response.data.token);
           setSubmitting(false);
+          history.go(0);
         });
        }}
      >

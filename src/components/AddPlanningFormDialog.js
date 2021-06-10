@@ -5,7 +5,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import Button from "components/CustomButtons/Button.js";
-import axios from 'axios';
+import api from 'api';
 import {format} from 'date-fns';
 import {
   MuiPickersUtilsProvider
@@ -13,13 +13,14 @@ import {
 import DateFnsUtils from '@date-io/date-fns';
 import CustomSelect from 'components/Select/CustomSelect';
 import DatePicker from 'components/DatePicker/DatePicker'
+import AddIcon from '@material-ui/icons/Add';
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
 
-export default function AddPlanningFormDialog() {
+export default function AddPlanningFormDialog({refreshTask}) {
   const [open, setOpen] = React.useState(false);
   const [listGMS, setListGMS] = useState([]);
   const [listMerchandisers, setListMerchandisers] = useState([]);
@@ -33,14 +34,15 @@ export default function AddPlanningFormDialog() {
   const [listTaskFriday, setListTaskFriday] = useState([]);
   const [listTaskSaturday, setListTaskSaturday] = useState([]);
   const [listTaskSunday, setListTaskSunday] = useState([]);
+
   const handleClickOpen = () => {
     setOpen(true);
-    axios.get(`http://localhost:8080/api/v1/gms`)
+    api.get(`http://localhost:8080/api/v1/gms`)
         .then(res => {
             setListGMS(res.data);
         });
 
-        axios.get(`http://localhost:8080/api/v1/user/role/MERCHANDISER`)
+        api.get(`http://localhost:8080/api/v1/user/role/MERCHANDISER`)
         .then(res => {
           setListMerchandisers(res.data);
         });
@@ -138,15 +140,15 @@ export default function AddPlanningFormDialog() {
       }
      })
      tasksArr = [...tasksArr,...arr] 
-     axios.post(`http://localhost:8080/api/v1/taskPlanning`, {startDate:format(new Date(selectedStartDate), 'dd-MM-yyyy'),endDate:format(new Date(selectedEndDate), 'dd-MM-yyyy'),tasks:tasksArr,merchandiser:selectedMerchandiser})
+     api.post(`http://localhost:8080/api/v1/taskPlanning`, {startDate:format(new Date(selectedStartDate), 'dd-MM-yyyy'),endDate:format(new Date(selectedEndDate), 'dd-MM-yyyy'),tasks:tasksArr,merchandiser:selectedMerchandiser})
         .then(res => {
+          refreshTask(selectedMerchandiser.id);
         });
         setOpen(false);
   }
   return (
     <>
-
-      <Button color="primary" round onClick={handleClickOpen}>Ajouter une Tache</Button>
+      <Button color="primary" round onClick={handleClickOpen}><AddIcon color="default" />Ajouter une Tache</Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Ajouter une nouvelle Tache</DialogTitle>
         <DialogContent>

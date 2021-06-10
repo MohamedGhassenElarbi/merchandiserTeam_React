@@ -15,7 +15,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
 
-export default function GMSDetailFormDialog({image,name}) {
+export default function ReclamationDetailFormDialog({image,content,name}) {
 
   const [open, setOpen] = React.useState(false);
 
@@ -46,7 +46,7 @@ export default function GMSDetailFormDialog({image,name}) {
         <DialogContent>
             <LargeImageCard image={image}></LargeImageCard>
           <DialogContentText id="alert-dialog-slide-description">
-            {}
+            {content}
           </DialogContentText>
         </DialogContent>
 

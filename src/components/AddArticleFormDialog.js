@@ -6,14 +6,13 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from "components/CustomButtons/Button.js";
 import api from 'api';
 import { Form, Formik } from 'formik';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import CustomTextField from 'components/CustomInput/CustomTextField';
+import CustomSelect from 'components/Select/CustomSelect';
 
 export default function AddArticleFormDialog({setArticles}) {
   const [open, setOpen] = React.useState(false);
   const [categories, setCategories] = useState([]);
+  const [chosenCategory, setChosenCategory] = useState({});
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -22,6 +21,9 @@ export default function AddArticleFormDialog({setArticles}) {
             setCategories(res.data);
         })
   };
+  const handleChangeCategory =(e)=>{
+    setChosenCategory(e)
+  }
 
   const handleClose = () => {
     setOpen(false);
@@ -34,7 +36,7 @@ export default function AddArticleFormDialog({setArticles}) {
         <DialogTitle id="form-dialog-title">Ajouter un nouveau Article</DialogTitle>
         <DialogContent>
         <Formik
-       initialValues={{ designation: '', reference: '',type:'',category:null,codeProduit:'',prix:'',poid:'' }}
+       initialValues={{ designation: '', reference: '',type:'',codeProduit:'',prix:'',poid:'' }}
        validate={values => {
          const errors = {};
          if (!values.designation) {
@@ -45,9 +47,6 @@ export default function AddArticleFormDialog({setArticles}) {
           }
           if (!values.type) {
             errors.type = 'Required';
-          }
-          if (!values.category) {
-            errors.category = 'Required';
           }
           if (!values.codeProduit) {
             errors.codeProduit = 'Required';
@@ -62,7 +61,7 @@ export default function AddArticleFormDialog({setArticles}) {
        }}
        onSubmit={(values, { setSubmitting }) => {
          console.log({values});
-         api.post(`http://localhost:8080/api/v1/articles`, {...values,category:{id:values.category}})
+         api.post(`http://localhost:8080/api/v1/articles`, {...values,category:{id:chosenCategory.id}})
         .then(response => {
           setSubmitting(false);
           api.get(`http://localhost:8080/api/v1/articles`)
@@ -93,20 +92,6 @@ export default function AddArticleFormDialog({setArticles}) {
            <CustomTextField handleChange={handleChange} handleBlur={handleBlur} settedValue={values.type} placeHolderValue={"type"} name={"type"}></CustomTextField>
            <br />
            {errors.type && touched.type && errors.type}
-           <InputLabel  shrink id="cat" >Catégorie:</InputLabel>
-           <Select
-             labelId="cat"
-             name="category"
-             fullWidth
-             onChange={handleChange}
-             onBlur={handleBlur}
-             value={values.category}
-           >
-               {categories.map(val => {
-                   return <MenuItem  key={val.id} value={val.id}>{val.nom}</MenuItem >;
-               })}
-           </Select><br />
-           {errors.category && touched.category && errors.category}
            <CustomTextField handleChange={handleChange} handleBlur={handleBlur} settedValue={values.codeProduit} placeHolderValue={"codeProduit"} name={"codeProduit"}></CustomTextField>
            <br />
            {errors.codeProduit && touched.codeProduit && errors.codeProduit}
@@ -116,6 +101,7 @@ export default function AddArticleFormDialog({setArticles}) {
            <CustomTextField handleChange={handleChange} handleBlur={handleBlur} settedValue={values.poid} placeHolderValue={"poid"} name={"poid"}></CustomTextField>
            <br />
            {errors.poid && touched.poid && errors.poid}
+           <CustomSelect handleChange={handleChangeCategory} optionsList={categories} placeHolderValue={"Catégorie"} optionLabel={'nom'}></CustomSelect>
            <DialogActions>
           <Button color="primary" type="submit" disabled={isSubmitting}>
             Ajouter

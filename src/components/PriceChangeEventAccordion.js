@@ -16,7 +16,8 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: theme.typography.fontWeightRegular,
   },
   cardsCss:{
-    marginLeft:'30%'
+    //marginLeft:'30%',
+    display:'Block'
   },
 }));
 
@@ -33,11 +34,23 @@ export default function PriceChangeEventAccordion({oldPrice,newPrice,product}) {
         >
           <Typography className={classes.heading}>{`Changement du prix :  ${product}`}</Typography>
         </AccordionSummary>
+        
         <AccordionDetails>
-        <Typography className={classes.heading}>{`ancien prix :  ${oldPrice}`}</Typography>
+        <div className={classes.cardsCss}>
+        <Typography variant="h5" component="h2">
+        {`Nom Article :  ${product}`}
+        </Typography>
         <br />
-        <Typography className={classes.heading}>{`Nouveau prix :  ${newPrice}`}</Typography>
+        <Typography variant="h5" component="h2">
+        {`Ancien prix :  ${oldPrice}`}
+        </Typography>
+        <br />
+        <Typography variant="h5" component="h2">
+        {`Nouveau prix :  ${newPrice}`}
+        </Typography>
+        </div>
         </AccordionDetails>
+        
       </Accordion>
     </div>
   );

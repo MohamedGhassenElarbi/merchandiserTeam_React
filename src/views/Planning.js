@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import SelectMerchandiserPlanning from '../components/SelectMerchandiserPlanning'
-import axios from 'axios';
+import api from 'api';
 import AddPlanningFormDialog from 'components/AddPlanningFormDialog'
 import UpdatePlanningFormDialog from 'components/UpdatePlanningFormDialog'
 import DeletePlanningFormDialog from 'components/DeletePlanningFormDialog'
@@ -15,18 +15,22 @@ export default function Planning() {
   );
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/api/v1/user/role/MERCHANDISER`)
+    api.get(`http://localhost:8080/api/v1/user/role/MERCHANDISER`)
         .then(res => {
             const merchandisersData = res.data;
             setMerchandisers(merchandisersData);
         })
 }, [])
-const fetchTask =()=>{
-  
+const refreshTask =(id)=>{
+  api.get(`http://localhost:8080/api/v1/taskPlanning/merchandiser/${id}`)
+  .then(res => {
+      const userData = res.data;
+      setTaskPlanning(userData);
+  })
 }
 useEffect(() => {
   if(!merchandiser)return;
-  axios.get(`http://localhost:8080/api/v1/taskPlanning/merchandiser/${merchandiser.id}`)
+  api.get(`http://localhost:8080/api/v1/taskPlanning/merchandiser/${merchandiser.id}`)
   .then(res => {
       const userData = res.data;
       setTaskPlanning(userData);
@@ -40,10 +44,12 @@ if(taskPlanning){
 }
   return (
     <>
+    <div style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
    <SelectMerchandiserPlanning setMerchandiser={setMerchandiser} merchandisers={merchandisers} merchandiser={merchandiser}/>
-   <AddPlanningFormDialog></AddPlanningFormDialog>
-   <UpdatePlanningFormDialog></UpdatePlanningFormDialog>
-   <DeletePlanningFormDialog></DeletePlanningFormDialog>
+   <AddPlanningFormDialog refreshTask={refreshTask}></AddPlanningFormDialog>
+   <UpdatePlanningFormDialog refreshTask={refreshTask}></UpdatePlanningFormDialog>
+   <DeletePlanningFormDialog refreshTask={refreshTask}></DeletePlanningFormDialog>
+   </div>
     <FullCalendar
       plugins={[ dayGridPlugin ]}
       initialView="dayGridMonth"
