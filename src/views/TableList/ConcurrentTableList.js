@@ -4,9 +4,11 @@ import GridItem from "components/Grid/GridItem.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
-import ConcurrentTable from 'components/Table/ConcurrentTable';
 import AddConcurrentFormDialog from 'components/AddConcurrentFormDialog'
 import api from 'api';
+import CustomTable from 'components/Table/CustomTable';
+import TableCell from '@material-ui/core/TableCell';
+import UpdateConcurrentFormDialog from 'components/UpdateConcurrentFormDialog'
 
 const styles = {
   cardCategoryWhite: {
@@ -61,6 +63,17 @@ const handleRemove=(id) =>{
       console.log(err);
     });
   }
+  const colomnNames=[{id:"id",label:"Id",disablePadding: true},{id:"name",label:"Nom", disablePadding: false},{id:"op",label:"Opérations", disablePadding: false}];
+  const tableBody= (row)=>{
+    return(<>
+    <TableCell component="th" scope="row" >{row.id}</TableCell>
+    <TableCell align="right">{row.name}</TableCell>
+    </>);
+  }
+
+  const returnUpdateComponent=(id,setConcurrents)=>{
+    return (<UpdateConcurrentFormDialog id={id} setConcurrents={setConcurrents}/>);
+  }
   return (
       <GridItem xs={12} sm={12} md={12}>
         <AddConcurrentFormDialog setConcurrents={setConcurrents}/>
@@ -72,7 +85,7 @@ const handleRemove=(id) =>{
             </p>
           </CardHeader>
           <CardBody>
-            <ConcurrentTable concurrents={concurrents} setConcurrents={setConcurrents} handleRemove={handleRemove}/>
+            <CustomTable entityList={concurrents} setEntityList={setConcurrents} handleRemove={handleRemove} colomnNames={colomnNames} tableBody={tableBody} returnUpdateComponent={returnUpdateComponent} message={"ce concurrent"}/>
           </CardBody>
         </Card>
       </GridItem>

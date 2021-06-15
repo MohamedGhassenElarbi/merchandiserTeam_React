@@ -9,6 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import DeleteDialog from '../DeleteDialog';
 import ReclamationDetailFormDialog from '../ReclamationDetailFormDialog';
+import CustomTableHead from './CustomTableHead'
 
 const useStyles = makeStyles({
   table: {
@@ -18,20 +19,11 @@ const useStyles = makeStyles({
 
 export default function ReclamationTable({reclamations,handleRemove}) {
   const classes = useStyles();
-
+  const colomnNames=["id","Type de reclamation","GMS","Merchandiser","Opérations"];
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Id</TableCell>
-            <TableCell align="right">Type reclamation</TableCell>
-            <TableCell align="right">Contenue</TableCell>
-            <TableCell align="right">GMS</TableCell>
-            <TableCell align="right">Merchandiser</TableCell>
-            <TableCell align="right">Opérations</TableCell>
-          </TableRow>
-        </TableHead>
+      <CustomTableHead colomnNames={colomnNames}></CustomTableHead>
         <TableBody>
           {reclamations.map((row) => (
             <TableRow key={row.id}>
@@ -39,7 +31,6 @@ export default function ReclamationTable({reclamations,handleRemove}) {
                 {row.id}
               </TableCell>
               <TableCell align="right">{row.type.name}</TableCell>
-              <TableCell align="right">{row.content}</TableCell>
               <TableCell align="right">{row.gms.name}</TableCell>
               <TableCell align="right">{row.merchandiser.name}</TableCell>
               <TableCell align="right">

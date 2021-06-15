@@ -4,9 +4,11 @@ import GridItem from "components/Grid/GridItem.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
-import ClaimTypeTable from 'components/Table/ClaimTypeTable';
 import AddClaimTypeFormDialog from 'components/AddClaimTypeFormDialog'
 import api from 'api';
+import CustomTable from 'components/Table/CustomTable';
+import TableCell from '@material-ui/core/TableCell';
+import UpdateClaimTypeFormDialog from 'components/UpdateClaimTypeFormDialog'
 
 const styles = {
   cardCategoryWhite: {
@@ -62,6 +64,18 @@ const handleRemove=(id) =>{
       console.log(err);
     });
   }
+
+  const colomnNames=[{id:"id",label:"Id",disablePadding: true},{id:"name",label:"Type de reclamation", disablePadding: false},{id:"op",label:"Opérations", disablePadding: false}];
+  const tableBody= (row)=>{
+    return(<>
+    <TableCell component="th" scope="row" >{row.id}</TableCell>
+    <TableCell align="right">{row.name}</TableCell>
+    </>);
+  }
+
+  const returnUpdateComponent=(id,setClaimTypes)=>{
+    return (<UpdateClaimTypeFormDialog id={id} setClaimTypes={setClaimTypes}/>);
+  }
   return (
     
       <GridItem xs={12} sm={12} md={12}>
@@ -74,7 +88,7 @@ const handleRemove=(id) =>{
             </p>
           </CardHeader>
           <CardBody>
-            <ClaimTypeTable claimTypes={claimTypes} setClaimTypes={setClaimTypes} handleRemove={handleRemove}/>
+            <CustomTable entityList={claimTypes} setEntityList={setClaimTypes} handleRemove={handleRemove} colomnNames={colomnNames} tableBody={tableBody} returnUpdateComponent={returnUpdateComponent} message={"cette type de réclamation"}/>
           </CardBody>
         </Card>
       </GridItem>

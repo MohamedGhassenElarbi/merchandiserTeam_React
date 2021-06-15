@@ -6,9 +6,11 @@ import GridItem from "components/Grid/GridItem.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
-import UserTable from 'components/Table/UserTable';
 import AddUserFormDialog from 'components/AddUserFormDialog'
 import api from 'api';
+import CustomTable from 'components/Table/CustomTable';
+import TableCell from '@material-ui/core/TableCell';
+import UpdateUserFormDialog from 'components/UpdateUserFormDialog'
 
 const styles = {
   cardCategoryWhite: {
@@ -66,6 +68,21 @@ const handleRemove=(id) =>{
       console.log(err);
     });
   }
+
+  const colomnNames=[{id:"name",label:"Name",disablePadding: true},{id:"email",label:"Email", disablePadding: false},{id:"phone",label:"Phone", disablePadding: false},{id:"role",label:"Role", disablePadding: false},{id:"dob",label:"Date de Naissance", disablePadding: false},{id:"op",label:"Opérations", disablePadding: false}];
+  const tableBody= (row)=>{
+    return(<>
+    <TableCell component="th" scope="row">{row.name}</TableCell>
+    <TableCell align="right">{row.email}</TableCell>
+    <TableCell align="right">{row.phone}</TableCell>
+    <TableCell align="right">{row.role}</TableCell>
+    <TableCell align="right">{row.dob}</TableCell>
+    </>);
+  }
+
+  const returnUpdateComponent=(id,setUsers)=>{
+    return (<UpdateUserFormDialog id={id} setUsers={setUsers}/>);
+  }
   return (
     
       <GridItem xs={12} sm={12} md={12}>
@@ -78,7 +95,7 @@ const handleRemove=(id) =>{
             </p>
           </CardHeader>
           <CardBody>
-            <UserTable setUsers={setUsers} users={users} handleRemove={handleRemove}/>
+            <CustomTable entityList={users} setEntityList={setUsers} handleRemove={handleRemove} colomnNames={colomnNames} tableBody={tableBody} returnUpdateComponent={returnUpdateComponent} message={"cet utilisateur"}/>
           </CardBody>
         </Card>
       </GridItem>

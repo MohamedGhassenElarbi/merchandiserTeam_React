@@ -12,7 +12,7 @@ import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import api from 'api';
-
+import CustomTableHead from './CustomTableHead'
 
 const useStyles = makeStyles({
   table: {
@@ -31,36 +31,27 @@ export default function LeaveRequestTable({leaveRequests,handleRemove,setLeaveRe
             })
         });
   }
-
+  const colomnNames=["Merchandiser","Date début","Date fin","Raison","Etat","Opérations"];
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Merchandiser</TableCell>
-            <TableCell align="left">Date début</TableCell>
-            <TableCell align="left">Date fin</TableCell>
-            <TableCell align="left">Raison</TableCell>
-            <TableCell align="left">Etat</TableCell>
-            <TableCell align="right">Opérations</TableCell>
-          </TableRow>
-        </TableHead>
+      <CustomTableHead colomnNames={colomnNames}></CustomTableHead>
         <TableBody>
           {leaveRequests.map((row) => (
             <TableRow key={row.id}>
               <TableCell component="th" scope="row">
                 {row.requester.name}
               </TableCell>
-              <TableCell component="th" scope="row">
+              <TableCell align="right"component="th" scope="row">
                 {row.startDate}
               </TableCell>
-              <TableCell component="th" scope="row">
+              <TableCell align="right"component="th" scope="row">
                 {row.endDate}
               </TableCell>
-              <TableCell component="th" scope="row">
+              <TableCell align="right"component="th" scope="row">
                 {row.reason}
               </TableCell>
-              <TableCell component="th" scope="row">
+              <TableCell align="right"component="th" scope="row">
                 {row.state}
               </TableCell>
               <TableCell align="right">

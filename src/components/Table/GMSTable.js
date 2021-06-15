@@ -10,6 +10,7 @@ import Paper from '@material-ui/core/Paper';
 import DeleteDialog from '../DeleteDialog';
 import UpdateGMSFormDialog from '../UpdateGMSFormDialog';
 import GMSDetailsFormDialog from '../GMSDetailsFormDialog';
+import CustomTableHead from './CustomTableHead'
 
 
 const useStyles = makeStyles({
@@ -20,19 +21,11 @@ const useStyles = makeStyles({
 
 export default function GMSTable({gms,handleRemove,setGMS}) {
   const classes = useStyles();
-
+  const colomnNames=["Désignation","Temps Estimée","Latitude","Longitude","Opérations"];
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Désignation</TableCell>
-            <TableCell align="right">Temps Estimée</TableCell>
-            <TableCell align="right">Latitude</TableCell>
-            <TableCell align="right">Longitude</TableCell>
-            <TableCell align="right">Opérations</TableCell>
-          </TableRow>
-        </TableHead>
+      <CustomTableHead colomnNames={colomnNames}></CustomTableHead>
         <TableBody>
           {gms.map((row) => (
             <TableRow key={row.id}>
