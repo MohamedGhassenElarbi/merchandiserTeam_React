@@ -1,6 +1,6 @@
 
 // @material-ui/icons
-import Dashboard from "@material-ui/icons/Dashboard";
+import DashboardIcon from "@material-ui/icons/Dashboard";
 import Person from "@material-ui/icons/Person";
 import userIcon from "@material-ui/icons/AccountCircle";
 import Home from "@material-ui/icons/Home";
@@ -25,6 +25,9 @@ import ReclamationTableList from 'views/TableList/ReclamationTableList'
 import ClaimTypeTableList from 'views/TableList/ClaimTypeTableList'
 import ReportTableList from 'views/TableList/ReportTableList'
 import LeaveRequestTableList from 'views/TableList/LeaveRequestTableList'
+import Dashboard from 'views/Dashboard'
+import Chat from 'views/chat'
+import ChatIcon from '@material-ui/icons/Chat';
 
 
 
@@ -32,8 +35,8 @@ const dashboardRoutes = [
   {
     path: "/dashboard",
     name: "Tableau de Bord",
-    icon: Dashboard,
-    component: CategoryTableList,
+    icon: DashboardIcon,
+    component: Dashboard,
     layout: "/admin"
   },
   {
@@ -41,6 +44,13 @@ const dashboardRoutes = [
     name: "Utilisateurs",
     icon: userIcon,
     component: UserTableList,
+    layout: "/admin"
+  },
+  {
+    path: "/messagerie",
+    name: "Messagerie",
+    icon: ChatIcon,
+    component: Chat,
     layout: "/admin"
   },
   {

@@ -62,7 +62,7 @@ export default function SignIn() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Connexion
         </Typography>
         <Formik
        initialValues={{ username: '', password: '' }}
@@ -80,8 +80,9 @@ export default function SignIn() {
        onSubmit={(values, { setSubmitting }) => {
         axios.post(`http://localhost:8080/login`, values)
         .then(response => {
-          console.log(response);
+          console.log(response.data.user);
           localStorage.setItem("TOKEN_KEY",response.data.token);
+          localStorage.setItem("USER_ID",response.data.user.id);
           setSubmitting(false);
           history.go(0);
         });
@@ -104,7 +105,7 @@ export default function SignIn() {
             required
             fullWidth
             id="username"
-            label="Email Address"
+            label="Addresse Email"
             autoComplete="email"
             autoFocus
             type="email"
@@ -120,7 +121,7 @@ export default function SignIn() {
             required
             fullWidth
             name="password"
-            label="Password"
+            label="Mot de passe"
             type="password"
             id="password"
             autoComplete="current-password"
@@ -131,7 +132,7 @@ export default function SignIn() {
           {errors.password && touched.password && errors.password}
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
+            label="Se souvenir de moi"
           />
           <Button
             type="submit"
@@ -141,19 +142,15 @@ export default function SignIn() {
             className={classes.submit}
             disabled={isSubmitting}
           >
-            Sign In
+            Connexion
           </Button>
           <Grid container>
             <Grid item xs>
               <Link href="#" variant="body2">
-                Forgot password?
+                Mot de passe oublié?
               </Link>
             </Grid>
-            <Grid item>
-              <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
+            
           </Grid>
         </Form>
         )}

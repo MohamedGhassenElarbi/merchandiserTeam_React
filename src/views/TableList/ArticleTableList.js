@@ -10,7 +10,7 @@ import AddArticleFormDialog from 'components/AddArticleFormDialog'
 import api from 'api';
 import CustomTable from 'components/Table/CustomTable';
 import TableCell from '@material-ui/core/TableCell';
-import UpdateArticleFormDialog from 'components/UpdateUserFormDialog'
+import UpdateArticleFormDialog from 'components/UpdateArticleFormDialog'
 
 const styles = {
   cardCategoryWhite: {

@@ -47,7 +47,9 @@ const useStyles = makeStyles(styles);
 export default function CategoryTableList() {
   const classes = useStyles();
   const [categories, setCategories] = useState([]);
-  
+  const [searchedCategory, setSearchedCategory] = useState()
+  const [possibleMatches, setPossibleMatches] = useState([])
+
   useEffect(() => {
     api.get(`http://localhost:8080/api/v1/category`)
           .then(res => {
@@ -86,7 +88,7 @@ export default function CategoryTableList() {
       <GridItem xs={12} sm={12} md={12}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <AddCategoryFormDialog setCategories={setCategories}/>
-        <SearchInput></SearchInput>
+        {/* <SearchInput listEntity={categories} setPossibleMatches={setPossibleMatches}setSearchedCategory={setSearchedCategory}searchedCategory={searchedCategory}setCategories={setCategories}></SearchInput> */}
         </div>
         <Card>
           <CardHeader color="primary">

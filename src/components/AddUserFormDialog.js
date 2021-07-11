@@ -41,7 +41,7 @@ export default function AddGMSFormDialog({setUsers}) {
   const [role, setRole] = useState({ id: 'MERCHANDISER', name: 'MERCHANDISER' });
   const listOfRoles = [
     { id: 'MERCHANDISER', name: 'MERCHANDISER' },
-    { id: 'ADMIN', name: 'ADMIN' },
+    // { id: 'ADMIN', name: 'ADMIN' },
     { id: 'SUPERVISOR', name: 'SUPERVISOR' }
   ]
   const classes = useStyles();

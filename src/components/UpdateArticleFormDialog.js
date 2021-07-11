@@ -47,7 +47,7 @@ export default function UpdateCategoryFormDialog({id,setArticles}) {
             <EditIcon color="default" />
         </IconButton>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title"><EditIcon color="default" />Modifier un Article</DialogTitle>
+        <DialogTitle id="form-dialog-title">{/*<EditIcon color="default" />*/}Modifier un Article</DialogTitle>
         <DialogContent>
         <Formik
         enableReinitialize

@@ -205,9 +205,9 @@ export default function AddPlanningFormDialog({ refreshTask }) {
   }
   return (
     <>
-      <Button color="primary" round onClick={handleClickOpen}><AddIcon color="default" />Ajouter une Tache</Button>
+      <Button color="primary" round onClick={handleClickOpen}><AddIcon color="default" />Ajouter un nouveau planning</Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Ajouter une nouvelle Tache</DialogTitle>
+        <DialogTitle id="form-dialog-title">Ajouter un nouveau planning</DialogTitle>
         <DialogContent>
           <CustomSelect handleChange={handleChangeMerchandiser} optionsList={listMerchandisers} placeHolderValue={"Merchandiser"}></CustomSelect>
           <CustomSelect handleChange={handleChangeListTaskMonday} optionsList={listGMS} placeHolderValue={"Lundi"} isMulti></CustomSelect>

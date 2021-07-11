@@ -45,28 +45,72 @@ export default function UpdatePlanningFormDialog({refreshTask}) {
   useEffect(() => {
     if(!currentPlanning) return;
     console.log("rerendering");
+    const sun =new Set();
+    const mon =new Set();
+    const tue =new Set();
+    const wed =new Set();
+    const thu =new Set();
+    const fri =new Set();
+    const sat =new Set();
     currentPlanning.tasks.forEach(element => {
+      
       switch (element.day) {
         case 0:
-          setListTaskSunday(s=>[...s,element.gms])
+          if(!sun.has(element.gms.name)){
+            setListTaskSunday(s=>[...s,element.gms])
+          sun.add(element.gms.name);
+          console.log(sun);
+          }
+          
           break;
         case 1:
-          setListTaskMonday(s=>[...s,element.gms])
+          
+          if(!mon.has(element.gms.name)){
+            setListTaskMonday(s=>[...s,element.gms])
+          mon.add(element.gms.name);
+          console.log(mon);
+          }
+          
           break;
         case 2:
-          setListTaskTuesday(s=>[...s,element.gms])
+          if(!tue.has(element.gms.name)){
+            setListTaskTuesday(s=>[...s,element.gms])
+          tue.add(element.gms.name);
+          console.log(tue);
+          }
+          
           break;
         case 3:
-          setListTaskWednesday(s=>[...s,element.gms])
+          if(!wed.has(element.gms.name)){
+            setListTaskWednesday(s=>[...s,element.gms])
+          wed.add(element.gms.name);
+          console.log(wed);
+          }
+          
           break;
         case 4:
-          setListTaskThursday(s=>[...s,element.gms])
+          if(!thu.has(element.gms.name)){
+            setListTaskThursday(s=>[...s,element.gms])
+          thu.add(element.gms.name);
+          console.log(thu);
+          }
+          
           break;
         case 5:
-          setListTaskFriday(s=>[...s,element.gms])
+          if(!fri.has(element.gms.name)){
+            setListTaskFriday(s=>[...s,element.gms])
+          fri.add(element.gms.name);
+          console.log(fri);
+          }
+          
           break;
         case 6:
-          setListTaskSaturday(s=>[...s,element.gms])
+          if(!sat.has(element.gms.name)){
+            setListTaskSaturday(s=>[...s,element.gms])
+          sat.add(element.gms.name);
+          console.log(sat);
+          }
+          
           break;
 
         default:
